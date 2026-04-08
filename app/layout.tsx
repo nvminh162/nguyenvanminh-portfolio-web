@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nguyen Van Minh | Introduce",
-  description: "Nguyen Van Minh | Introduce about @nvminh162",
+  title: "Nguyen Van Minh | Portfolio",
+  description: "Nguyen Van Minh portfolio page",
 };
 
 export default function RootLayout({
