@@ -1,3 +1,3 @@
 export default function PortfolioPage() {
-  return <></>
+  return <div className="text-2xl bg-primary font-bold">PortfolioPage</div>
 }
