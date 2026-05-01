@@ -3,8 +3,11 @@
 import Particles from "@/components/Particles";
 import EasterEggs from "@/components/easter-eggs";
 import ElasticCursor from "@/components/ui/ElasticCursor";
+import { usePathname } from "next/navigation";
+import RadialMenu from "@/components/radial-menu/index";
 
 export default function AppOverlays() {
+  const isHome = usePathname() === "/";
   return (
     <>
       <Particles
@@ -13,6 +16,7 @@ export default function AppOverlays() {
       />
       <EasterEggs />
       <ElasticCursor />
+      {isHome && <RadialMenu />}
     </>
   );
 }
