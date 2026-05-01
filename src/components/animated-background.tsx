@@ -7,6 +7,7 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { usePreloader } from "./preloader";
 import { useRouter } from "next/navigation";
 import { Section } from "./animated-background-config";
+import { useTheme } from "next-themes";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +15,7 @@ const AnimatedBackground = () => {
   const { isLoading, bypassLoading } = usePreloader();
   const isMobile = useMediaQuery("(max-width: 767px)");
   const router = useRouter();
+  const { resolvedTheme } = useTheme();
 
   const frameRef = useRef<HTMLDivElement | null>(null);
   const auraRef = useRef<HTMLDivElement | null>(null);
@@ -22,6 +24,16 @@ const AnimatedBackground = () => {
 
   const [activeSection, setActiveSection] = useState<Section>("hero");
   const [portraitReady, setPortraitReady] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const portraitSrc =
+    mounted && resolvedTheme === "light"
+      ? "/nvminh162-light.png"
+      : "/nvminh162-dark.png";
 
   const getPortraitState = (section: Section) => {
     if (isMobile) {
@@ -232,7 +244,7 @@ const AnimatedBackground = () => {
       >
         <div className="relative h-full w-full rounded-full overflow-hidden ring-1 ring-white/25 bg-black/25">
           <Image
-            src="https://avatars.githubusercontent.com/u/121565657?v=4"
+            src={portraitSrc}
             alt="Nguyen Van Minh portrait"
             fill
             sizes="(max-width: 768px) 16rem, 20rem"
