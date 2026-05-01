@@ -1,12 +1,12 @@
 const config = {
-  title: "M. Faiq Khokhar | Full-Stack Developer",
+  title: "Nguyen Van Minh | Full-Stack Developer",
   description: {
-    long: "Explore the portfolio of Faiq K., a full-stack developer and creative technologist specializing in interactive web experiences, 3D animations, and innovative projects. Discover my latest work, including Infin Global.io, BlockMed Pro, T-OTP based Authentication, AI Recommendation System, and more. Let's build something amazing together!",
+    long: "Explore the portfolio of Nguyen Van Minh, a full-stack developer and creative technologist specializing in interactive web experiences, 3D animations, and innovative projects. Discover my latest work, including Infin Global.io, BlockMed Pro, T-OTP based Authentication, AI Recommendation System, and more. Let's build something amazing together!",
     short:
-      "Discover the portfolio of Faiq K., a full-stack developer creating interactive web experiences and innovative projects.",
+      "Discover the portfolio of Nguyen Van Minh, a full-stack developer creating interactive web experiences and innovative projects.",
   },
   keywords: [
-    "Faiq Khokhar",
+    "Nguyen Van Minh",
     "portfolio",
     "full-stack developer",
     "creative technologist",
@@ -67,20 +67,20 @@ const config = {
     "Vim",
     "Vercel",
   ],
-  author: "Faiq K.",
-  email: "faiq.khokhar06@gmail.com",
-  site: "https://faiq-khokhar-dev.vercel.app",
+  author: "Van Minh",
+  email: "nvminh162@gmail.com",
+  site: "https://nguyenvanminh.com",
 
   // for github followers button
-  githubUsername: "Faiq-Khokhar",
+  githubUsername: "nvminh162",
 
   get ogImg() {
     return this.site + "/assets/seo/og-image.png";
   },
   social: {
-    upwork: "https://www.upwork.com/freelancers/~01b862b354cdf9d71b",
-    linkedin: "https://www.linkedin.com/in/m-faiq-khokhar/",
-    github: "https://github.com/Faiq-Khokhar",
+    upwork: "https://www.upwork.com/freelancers/nvminh162",
+    linkedin: "https://www.linkedin.com/in/nvminh162",
+    github: "https://github.com/nvminh162",
   },
 };
 export { config };

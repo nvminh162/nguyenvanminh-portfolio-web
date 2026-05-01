@@ -14,10 +14,15 @@ export default function FunnyThemeToggle({
 }: {
   className?: string;
 }) {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [counter, setCounter] = React.useState({ dark: 0, light: 0 });
+  const [mounted, setMounted] = React.useState(false);
   const { toast } = useToast();
   const ref = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = async (newTheme: string, event?: React.MouseEvent) => {
     // @ts-ignore
@@ -76,9 +81,23 @@ export default function FunnyThemeToggle({
     toggleTheme("dark", e);
   };
 
+  if (!mounted) {
+    return (
+      <Button
+        variant="outline"
+        size="icon"
+        className={cn("border-none bg-transparent", className)}
+        aria-label="Toggle theme"
+      >
+        <Sun className="h-[1.2rem] w-[1.2rem]" />
+        <span className="sr-only">Toggle theme</span>
+      </Button>
+    );
+  }
+
   return (
     <>
-      {theme === "light" ? (
+      {resolvedTheme === "light" ? (
         <Button
           variant="outline"
           size="icon"
