@@ -232,7 +232,7 @@ const AnimatedBackground = () => {
       >
         <div className="relative h-full w-full rounded-full overflow-hidden ring-1 ring-white/25 bg-black/25">
           <Image
-            src="/nvminh162.JPEG"
+            src="https://avatars.githubusercontent.com/u/121565657?v=4"
             alt="Nguyen Van Minh portrait"
             fill
             sizes="(max-width: 768px) 16rem, 20rem"
