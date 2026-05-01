@@ -81,7 +81,7 @@ const ProjectsSection = () => {
       <SectionHeader
         id="projects"
         title="Projects"
-        desc="Quick hits from my 69+ build lists."
+        desc="Quick hits from my 10+ build lists."
       />
       <div
         ref={sectionRef}
