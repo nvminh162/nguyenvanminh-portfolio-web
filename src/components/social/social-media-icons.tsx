@@ -1,28 +1,23 @@
 "use client";
 
-import { useInView } from "motion/react";
+import { useInView } from "framer-motion";
 import React, { useRef } from "react";
 import { Button } from "../ui/button";
-import { SiGithub, SiInstagram, SiX } from "react-icons/si";
+import { SiGithub, SiUpwork } from "react-icons/si";
 import { config } from "@/data/config";
 import Link from "next/link";
 
 const BUTTONS = [
   {
+    name: "Upwork",
+    href: config.social.upwork,
+    icon: <SiUpwork size={"24"} color={"#fff"} />,
+  },
+  {
     name: "Github",
     href: config.social.github,
     icon: <SiGithub size={"24"} color={"#fff"} />,
-  },
-  {
-    name: "Twitter",
-    href: config.social.twitter,
-    icon: <SiX size={"24"} color={"#fff"} />,
-  },
-  {
-    name: "Instagram",
-    href: config.social.instagram,
-    icon: <SiInstagram size={"24"} color={"#fff"} />,
-  },
+  }
 ];
 
 const SocialMediaButtons = () => {

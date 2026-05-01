@@ -1,9 +1,19 @@
+"use client";
 import React from "react";
 import Link from "next/link";
+import Lottie from "lottie-react";
 import { footer } from "./config";
 import { Button } from "../ui/button";
 import SocialMediaButtons from "../social/social-media-icons";
 import { config } from "@/data/config";
+import comingSoonAnim from "../../../public/assets/lottie/developer.json";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalTrigger,
+  useModal,
+} from "../ui/animated-modal";
 
 function Footer() {
   const year = new Date().getFullYear();
@@ -16,6 +26,20 @@ function Footer() {
       <nav className="flex gap-4 sm:gap-6 z-10">
         {footer.map((link, index) => {
           const { title, href } = link;
+          const isComingSoon =
+            title.toLowerCase() === "blog" ||
+            title.toLowerCase() === "newsletter";
+
+          if (isComingSoon) {
+            return (
+              <Modal key={`modal_${index}`}>
+                <ModalTrigger className="bg-transparent p-0 text-xs underline-offset-4 hover:underline">
+                  <span className="p-0 h-auto text-xs">{title}</span>
+                </ModalTrigger>
+                <ComingSoonModal />
+              </Modal>
+            );
+          }
 
           return (
             <Link
@@ -23,7 +47,9 @@ function Footer() {
               href={href}
               key={`l_${index}`}
             >
-              <Button variant={"link"}>{title}</Button>
+              <Button variant={"link"} className="p-0 h-auto text-xs">
+                {title}
+              </Button>
             </Link>
           );
         })}
@@ -31,5 +57,31 @@ function Footer() {
     </footer>
   );
 }
+
+const ComingSoonModal = () => {
+  const { setOpen } = useModal();
+  return (
+    <ModalBody className="md:max-w-lg h-full">
+      <ModalContent className="items-center gap-6 text-center">
+      <Lottie
+        animationData={comingSoonAnim}
+        loop
+        className="w-44 h-auto md:w-52 mx-auto -mt-16 -mb-4"
+      />
+        <div className="space-y-2">
+          <h3 className="text-xl font-semibold">
+            Heads up! Fun stuff loading…
+          </h3>
+          <p className="text-sm text-muted-foreground">
+            We&apos;re brewing the next drop—grab a coffee and stick around.
+          </p>
+        </div>
+        <Button onClick={() => setOpen(false)} className="self-center">
+          Got it
+        </Button>
+      </ModalContent>
+    </ModalBody>
+  );
+};
 
 export default Footer;

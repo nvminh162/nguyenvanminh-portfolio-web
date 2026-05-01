@@ -4,7 +4,8 @@
   position: fixed;
   width: 100%;
   box-sizing: border-box;
-  padding: 15px;
+  inset: env(safe-area-inset-top, 0px) 0 auto 0;
+  padding: calc(15px + env(safe-area-inset-top, 0px)) 15px 15px 15px;
   backdrop-filter: blur(12px);
 
   .background {

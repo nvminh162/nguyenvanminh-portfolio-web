@@ -1,139 +1,225 @@
 "use client";
+
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
-import React from "react";
-import {
-  ResponsiveDialog,
-  ResponsiveDialogContent,
-  ResponsiveDialogTrigger,
-} from "../ui/responsive-dialog";
-import { FloatingDock } from "../ui/floating-dock";
-import { ScrollArea } from "../ui/scroll-area";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { motion } from "motion/react";
-
-import projects, { Project } from "@/data/projects";
 import { SectionHeader } from "./section-header";
+import { cn } from "@/lib/utils";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { PROJECTS, SimpleProject } from "@/data/projects";
 
-import SectionWrapper from "../ui/section-wrapper";
+const tiltOptions = {
+  max: 5,
+  speed: 400,
+  glare: true,
+  "max-glare": 0.2,
+  gyroscope: false,
+};
 
 const ProjectsSection = () => {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 768px)");
+    const handler = (e: MediaQueryListEvent | MediaQueryList) =>
+      setIsDesktop(
+        e instanceof MediaQueryListEvent ? e.matches : media.matches
+      );
+    handler(media);
+    media.addEventListener("change", handler);
+    return () => media.removeEventListener("change", handler);
+  }, []);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      const setup = () => {
+        const section = sectionRef.current;
+        const track = trackRef.current;
+        if (!section || !track) return;
+
+        const distance = track.scrollWidth - section.clientWidth;
+        ScrollTrigger.getById("projects-horizontal")?.kill();
+        gsap.set(track, { x: 0 });
+        if (distance <= 0) return;
+
+        gsap.to(track, {
+          x: -distance,
+          ease: "none",
+          scrollTrigger: {
+            id: "projects-horizontal",
+            trigger: section,
+            start: "top 30%",
+            end: () => `+=${distance + window.innerHeight}`,
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+      };
+
+      setup();
+      ScrollTrigger.addEventListener("refreshInit", setup);
+
+      return () => {
+        ScrollTrigger.removeEventListener("refreshInit", setup);
+        ScrollTrigger.getById("projects-horizontal")?.kill();
+      };
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <SectionWrapper id="projects" className="max-w-7xl mx-auto md:h-[130vh]">
-      <SectionHeader id="projects" title="Projects" />
-      <div className="grid grid-cols-1 md:grid-cols-3">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
+    <section
+      id="projects"
+      className="relative max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24"
+    >
+      <SectionHeader
+        id="projects"
+        title="Projects"
+        desc="Quick hits from my 69+ build lists."
+      />
+      <div
+        ref={sectionRef}
+        className="mt-10 overflow-x-hidden w-screen max-w-none -mx-[calc(50vw-50%)]"
+      >
+        <div
+          ref={trackRef}
+          className="flex gap-8 overflow-visible pb-6 snap-x snap-mandatory w-max"
+        >
+          {PROJECTS.map((project) => (
+            <ProjectCard
+              key={project.name}
+              project={project}
+              isDesktop={isDesktop}
+            />
+          ))}
+        </div>
       </div>
-    </SectionWrapper>
+    </section>
   );
 };
 
-const ProjectCard = ({ project }: { project: Project }) => {
+type ProjectCardProps = {
+  project: SimpleProject;
+  isDesktop: boolean;
+};
+
+const imageExtensions: Record<string, string> = {
+  jiniz: "jpg",
+};
+
+const ProjectCard = ({ project, isDesktop }: ProjectCardProps) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+    import("vanilla-tilt").then(({ default: VanillaTilt }: any) => {
+      VanillaTilt.init(cardRef.current, tiltOptions);
+    });
+  }, []);
+
+  const imageSrc = `/assets/projects-screenshots/${project.imageKey}.${
+    imageExtensions[project.imageKey] ?? "png"
+  }`;
+
   return (
-    <div className="flex items-center justify-center">
-      <ResponsiveDialog>
-        <ResponsiveDialogTrigger className="bg-transparent flex justify-center">
+    <a
+      href={project.url}
+      target="_blank"
+      rel="noreferrer"
+      className={cn(
+        "overflow-hidden rounded-3xl snap-start link",
+        "flex-shrink-0"
+      )}
+      style={{
+        width: "min(90vw, 38rem)",
+        maxWidth: isDesktop ? "calc(100vw - 2rem)" : "calc(100vw - 4rem)",
+        minWidth: "260px",
+        flex: "1 0 auto",
+        WebkitMaskImage: "-webkit-radial-gradient(white, black)",
+      }}
+    >
+      <div
+        ref={cardRef}
+        className={cn(
+          "relative p-6 flex flex-col justify-between max-w-full rounded-3xl",
+          "h-[20rem] sm:h-[22rem] md:h-[26rem]",
+          "shadow-lg transition-transform duration-300 hover:-translate-y-2",
+          "[transform-style:preserve-3d] [transform:perspective(1000px)] overflow-hidden"
+        )}
+        style={{
+          background: `linear-gradient(90deg, ${project.gradient[0]} 0%, ${project.gradient[1]} 100%)`,
+        }}
+      >
+        <Image
+          src="/assets/project-bg.svg"
+          alt="project"
+          className="absolute top-0 left-0 w-full h-full opacity-20 rounded-3xl object-cover pointer-events-none"
+          fill
+        />
+        <Image
+          src={imageSrc}
+          alt={project.name}
+          className={cn(
+            "absolute top-0 bottom-auto left-auto rounded-xl shadow-xl object-contain",
+            "w-[12rem] sm:w-[15rem] md:w-[17rem]",
+            "rotate-[-22.5deg]",
+            "h-auto min-w-0 max-h-none",
+            "z-0"
+          )}
+          sizes="(min-width: 1024px) 272px, (min-width: 640px) 240px, 192px"
+          priority={false}
+          style={{ right: "1.5rem" }}
+          width={400}
+          height={400}
+        />
+        {!isDesktop && (
           <div
-            className="relative w-[400px] h-auto rounded-lg overflow-hidden"
-            style={{ aspectRatio: "3/2" }}
-          >
-            <Image
-              className="absolute w-full h-full top-0 left-0 hover:scale-[1.05] transition-all"
-              src={project.src}
-              alt={project.title}
-              width={300}
-              height={300}
-            />
-            <div className="absolute w-full h-1/2 bottom-0 left-0 bg-gradient-to-t from-background via-background/85 to-transparent pointer-events-none">
-              <div className="flex flex-col h-full items-start justify-end p-6">
-                <div className="text-lg text-left">{project.title}</div>
-                <div className="text-xs bg-primary text-primary-foreground rounded-lg w-fit px-2">
-                  {project.category}
-                </div>
-              </div>
-            </div>
+            className="absolute bottom-0 left-0 w-full h-20"
+            style={{
+              background: `linear-gradient(0deg, ${project.gradient[0]} 10%, rgba(0,0,0,0) 100%)`,
+            }}
+          />
+        )}
+        <h1
+          className="z-10 text-xl font-medium sm:text-2xl text-white"
+          style={{ transform: "translateZ(3rem)" }}
+        >
+          {project.name}
+        </h1>
+        <div
+          className={cn(
+            "w-1/2 h-full absolute left-24 top-0 sm:flex items-center hidden",
+            "rotate-[-22.5deg]"
+          )}
+          style={{ transform: "rotate(-22.5deg) translateZ(3rem)" }}
+        >
+          <div className="flex flex-col pb-8">
+            {project.tech.map((el, i) => (
+              <Image
+                className={`${i % 2 === 0 && "ml-16"} mb-4`}
+                src={`/assets/tech/${el}.svg`}
+                alt={el}
+                height={45}
+                width={45}
+                key={el}
+              />
+            ))}
           </div>
-        </ResponsiveDialogTrigger>
-
-        <ResponsiveDialogContent className="md:max-w-4xl md:h-[85vh] md:!flex md:flex-col md:overflow-hidden md:p-0 md:gap-0">
-          {/* Sticky header */}
-          <div className="shrink-0 border-b border-border bg-background/80 backdrop-blur-sm px-8 py-5">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-4 min-w-0">
-                <h4 className="font-display text-xl md:text-2xl font-bold text-foreground tracking-tight truncate">
-                  {project.title}
-                </h4>
-                <span className="shrink-0 text-[11px] uppercase tracking-widest text-muted-foreground border border-border rounded-full px-3 py-0.5">
-                  {project.category}
-                </span>
-              </div>
-              <div className="shrink-0 flex items-center gap-4">
-                {project.github && (
-                  <Link
-                    href={project.github}
-                    target="_blank"
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2"
-                  >
-                    Source
-                  </Link>
-                )}
-                <Link href={project.live} target="_blank">
-                  <button className="group flex items-center gap-2 bg-primary text-primary-foreground text-sm font-medium px-4 py-1.5 rounded-full hover:bg-primary/80 transition-colors">
-                    Visit
-                    <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Scrollable content */}
-          <ScrollArea className="flex-1" type="always" data-lenis-prevent>
-            <div className="px-8 py-8">
-              {/* Tech stack */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="flex flex-col md:flex-row gap-6 md:gap-10 mb-10"
-              >
-                {project.skills.frontend?.length > 0 && (
-                  <div className="flex flex-col items-center md:items-start gap-2">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
-                      Frontend
-                    </span>
-                    <FloatingDock items={project.skills.frontend} />
-                  </div>
-                )}
-                {project.skills.backend?.length > 0 && (
-                  <div className="flex flex-col items-center md:items-start gap-2">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
-                      Backend
-                    </span>
-                    <FloatingDock items={project.skills.backend} />
-                  </div>
-                )}
-              </motion.div>
-
-              {/* Divider */}
-              <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-10" />
-
-              {/* Project content */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                {project.content}
-              </motion.div>
-            </div>
-          </ScrollArea>
-
-        </ResponsiveDialogContent>
-      </ResponsiveDialog>
-    </div>
+        </div>
+        <h2
+          className="z-10 text-sm font-normal tracking-wide text-white"
+          style={{ transform: "translateZ(0.8rem)" }}
+        >
+          {project.description}
+        </h2>
+      </div>
+    </a>
   );
 };
 

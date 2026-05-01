@@ -11,7 +11,7 @@ import { usePreloader } from "./preloader";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { Section, getKeyboardState } from "./animated-background-config";
-import { useSounds } from "./realtime/hooks/use-sounds";
+import { useSounds } from "@/hooks/use-sounds";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,8 +29,8 @@ const AnimatedBackground = () => {
   const [activeSection, setActiveSection] = useState<Section>("hero");
 
   // Animation controllers refs
-  const bongoAnimationRef = useRef<{ start: () => void; stop: () => void }>(null);
-  const keycapAnimationsRef = useRef<{ start: () => void; stop: () => void }>(null);
+  const bongoAnimationRef = useRef<{ start: () => void; stop: () => void }>();
+  const keycapAnimationsRef = useRef<{ start: () => void; stop: () => void }>();
 
   const [keyboardRevealed, setKeyboardRevealed] = useState(false);
   const router = useRouter();
@@ -143,7 +143,7 @@ const AnimatedBackground = () => {
 
     // Section transitions
     createSectionTimeline("#skills", "skills", "hero");
-    createSectionTimeline("#projects", "projects", "skills", "top 70%");
+    createSectionTimeline("#projects", "projects", "skills", "top 85%");
     createSectionTimeline("#contact", "contact", "projects", "top 30%");
   };
 
@@ -327,6 +327,7 @@ const AnimatedBackground = () => {
 
   useEffect(() => {
     if (!selectedSkill || !splineApp) return;
+    // console.log(selectedSkill)
     splineApp.setVariable("heading", selectedSkill.label);
     splineApp.setVariable("desc", selectedSkill.shortDescription);
   }, [selectedSkill]);

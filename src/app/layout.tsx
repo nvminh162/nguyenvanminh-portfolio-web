@@ -2,23 +2,27 @@ import type { Metadata } from "next";
 import { Inter, Archivo_Black } from "next/font/google";
 import "./globals.css";
 import { config } from "@/data/config";
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 import Script from "next/script";
 import AppOverlays from "@/components/app-overlays";
 import { Providers } from "@/components/providers";
-import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: config.title,
   description: config.description.long,
   keywords: config.keywords,
   authors: [{ name: config.author }],
+  metadataBase: new URL(config.site),
+  applicationName: config.title,
   openGraph: {
     title: config.title,
     description: config.description.short,
     url: config.site,
+    siteName: config.title,
     images: [
       {
         url: config.ogImg,
@@ -38,6 +42,18 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  alternates: {
+    canonical: config.site,
+  },
+  publisher: config.author,
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.png",
   },
 };
 
@@ -65,6 +81,29 @@ export default function RootLayout({
           src={process.env.UMAMI_DOMAIN}
           data-website-id={process.env.UMAMI_SITE_ID}
         ></Script>
+        <Script
+          id="ld-json-site"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: config.title,
+              url: config.site,
+              description: config.description.long,
+              author: {
+                "@type": "Person",
+                name: config.author,
+              },
+              publisher: {
+                "@type": "Person",
+                name: config.author,
+              },
+            }),
+          }}
+        />
+        <Analytics />
+        <SpeedInsights />
       </head>
       <body>
         <Providers>
@@ -73,9 +112,6 @@ export default function RootLayout({
           <Footer />
           <AppOverlays />
         </Providers>
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-        )}
       </body>
     </html>
   );

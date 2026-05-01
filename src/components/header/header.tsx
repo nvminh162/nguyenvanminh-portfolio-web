@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import styles from "./style.module.scss";
 import { opacity, background } from "./anim";
 import Nav from "./nav";
@@ -10,8 +9,7 @@ import { cn } from "@/lib/utils";
 import FunnyThemeToggle from "../theme/funny-theme-toggle";
 import { Button } from "../ui/button";
 import { config } from "@/data/config";
-import OnlineUsers from "../realtime/online-users";
-import { GitHubStarsButton } from "../ui/shadcn-io/github-stars-button";
+import { GitHubFollowersButton } from "../ui/shadcn-io/github-followers-button";
 
 interface HeaderProps {
   loader?: boolean;
@@ -19,7 +17,6 @@ interface HeaderProps {
 
 const Header = ({ loader }: HeaderProps) => {
   const [isActive, setIsActive] = useState<boolean>(false);
-  const isHome = usePathname() === "/";
   return (
     <motion.header
       className={cn(
@@ -56,20 +53,16 @@ const Header = ({ loader }: HeaderProps) => {
           </Button>
         </Link>
 
-        <FunnyThemeToggle className="w-6 h-6 mr-4 hidden md:flex" />
-        {isHome && process.env.NEXT_PUBLIC_WS_URL && <OnlineUsers />}
-        {config.githubUsername && config.githubRepo && (
-          <GitHubStarsButton
+        <FunnyThemeToggle className="w-6 h-6 mr-4 flex" />
+        {config.githubUsername && (
+          <GitHubFollowersButton
             username={config.githubUsername}
-            repo={config.githubRepo}
             className="mr-4"
           />
         )}
         <Button
           variant={"ghost"}
           onClick={() => setIsActive(!isActive)}
-          aria-label={isActive ? "Close menu" : "Open menu"}
-          aria-expanded={isActive}
           className={cn(
             styles.el,
             "m-0 p-0 h-6 bg-transparent flex items-center justify-center"
@@ -87,8 +80,9 @@ const Header = ({ loader }: HeaderProps) => {
             </motion.p>
           </div>
           <div
-            className={`${styles.burger} ${isActive ? styles.burgerActive : ""
-              }`}
+            className={`${styles.burger} ${
+              isActive ? styles.burgerActive : ""
+            }`}
           ></div>
         </Button>
       </div>

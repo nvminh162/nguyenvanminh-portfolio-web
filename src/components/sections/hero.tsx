@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import React from "react";
 import { Button } from "../ui/button";
 import { File } from "lucide-react";
 import {
@@ -11,7 +10,7 @@ import {
 import { usePreloader } from "../preloader";
 import { BlurIn, BoxReveal } from "../reveal-animations";
 import ScrollDownIcon from "../scroll-down-icon";
-import { SiGithub, SiX } from "react-icons/si";
+import { SiGithub, SiUpwork } from "react-icons/si";
 import { config } from "@/data/config";
 
 import SectionWrapper from "../ui/section-wrapper";
@@ -20,7 +19,7 @@ const HeroSection = () => {
   const { isLoading } = usePreloader();
 
   return (
-    <SectionWrapper id="hero" className={cn("relative w-full h-screen")}>
+    <SectionWrapper id="hero" className={cn("relative w-full h-[100dvh]")}>
       <div className="grid md:grid-cols-2">
         <div
           className={cn(
@@ -50,13 +49,14 @@ const HeroSection = () => {
                     <TooltipTrigger asChild>
                       <h1
                         className={cn(
-                          "-ml-[6px] leading-none font-thin text-transparent text-slate-800 text-left",
+                          "-ml-[4px] leading-none font-thin text-transparent text-slate-800 text-left mt-1",
                           "font-thin text-7xl md:text-7xl lg:text-8xl xl:text-9xl",
                           "cursor-default text-edge-outline font-display "
                         )}
                       >
                         {config.author.split(" ")[0]}
-                        <br className="md:block hiidden" />
+                        <span className="md:hidden"> </span>
+                        <br className="hidden md:block" />
                         {config.author.split(" ")[1]}
                       </h1>
                     </TooltipTrigger>
@@ -68,11 +68,10 @@ const HeroSection = () => {
                     </TooltipContent>
                   </Tooltip>
                 </BlurIn>
-                {/* <div className="md:block hidden bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 w-screen h-px animate-fade-right animate-glow" /> */}
                 <BlurIn delay={1.2}>
                   <p
                     className={cn(
-                      "md:self-start md:mt-4 font-thin text-md text-slate-500 dark:text-zinc-400",
+                      "md:self-start mt-2 font-thin text-md text-slate-500 dark:text-zinc-400",
                       "cursor-default font-display sm:text-xl md:text-xl whitespace-nowrap bg-clip-text "
                     )}
                   >
@@ -80,15 +79,15 @@ const HeroSection = () => {
                   </p>
                 </BlurIn>
               </div>
-              <div className="mt-8 flex flex-col gap-3 w-fit">
+              <div className="mt-6 flex flex-col gap-3 w-fit">
                 <Link
                   href={
-                    "https://drive.google.com/file/d/1MTSsUA8V7Po2AsNXT8kZ5sLOpzC8l7qm/view?usp=sharing"
+                    "https://drive.google.com/file/d/184CT9elgsqE8nYGlfE0frH-N76Vsg3Yy/view?usp=sharing"
                   }
                   target="_blank"
                   className="flex-1"
                 >
-                  <BoxReveal delay={2} width="100%" >
+                  <BoxReveal delay={2} width="100%">
                     <Button className="flex items-center gap-2 w-full">
                       <File size={24} />
                       <p>Resume</p>
@@ -108,16 +107,13 @@ const HeroSection = () => {
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
-                      <p>pls 🥹 🙏</p>
+                      <p>Yes, you can do it. 🥹 🙏</p>
                     </TooltipContent>
                   </Tooltip>
                   <div className="flex items-center h-full gap-2">
-                    <Link
-                      href={config.social.twitter}
-                      target="_blank"
-                    >
+                    <Link href={config.social.upwork} target="_blank">
                       <Button variant={"outline"}>
-                        <SiX size={24} />
+                        <SiUpwork size={24} />
                       </Button>
                     </Link>
                     <Link
@@ -129,15 +125,15 @@ const HeroSection = () => {
                         <SiGithub size={24} />
                       </Button>
                     </Link>
-                    <Link
+                    {/* <Link
                       href={config.social.linkedin}
                       target="_blank"
                       className="cursor-can-hover"
                     >
                       <Button variant={"outline"}>
-                        {/* <SiLinkedin size={24} /> */}
+                        <SiLinkedin size={24} />
                       </Button>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>

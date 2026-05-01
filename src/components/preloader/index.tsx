@@ -7,7 +7,7 @@ import {
   useContext,
   useRef,
 } from "react";
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence } from "framer-motion";
 
 import Loader from "./loader";
 import gsap from "gsap";
@@ -40,12 +40,13 @@ const LOADING_TIME = 2.5;
 function Preloader({ children, disabled = false }: PreloaderProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingPercent, setLoadingPercent] = useState(0);
-  const loadingTween = useRef<gsap.core.Tween>(null);
+  const loadingTween = useRef<gsap.core.Tween>();
 
   const bypassLoading = () => {
     loadingTween.current?.progress(0.99).kill();
     setLoadingPercent(100);
     setIsLoading(false);
+    // console.log("killed", loadingTween.current);
   };
   const loadingPercentRef = useRef<{ value: number }>({ value: 0 });
   useEffect(() => {
@@ -58,6 +59,8 @@ function Preloader({ children, disabled = false }: PreloaderProps) {
       },
       onComplete: () => {
         setIsLoading(false);
+        // observe: this change has not been observed for errors.
+        // window.scrollTo(0, 0);
       },
     });
   }, []);

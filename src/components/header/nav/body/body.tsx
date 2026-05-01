@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import styles from "./style.module.scss";
 import { blur, translate } from "../../anim";
@@ -35,7 +35,7 @@ export default function Body({
   }, [params]);
 
   const getChars = (word: string) => {
-    let chars: React.JSX.Element[] = [];
+    let chars: JSX.Element[] = [];
     word.split("").forEach((char, i) => {
       chars.push(
         <motion.span
@@ -56,7 +56,6 @@ export default function Body({
 
   return (
     <div className={cn(styles.body, "flex flex-col items-end md:flex-row")}>
-      <FunnyThemeToggle className="w-6 h-6 mr-6 flex md:hidden" />
       {links.map((link, index) => {
         const { title, href, target } = link;
 

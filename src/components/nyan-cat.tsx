@@ -6,7 +6,7 @@ import {
   motion,
   animate,
   useAnimationControls,
-} from "motion/react";
+} from "framer-motion";
 
 const getRandomHeight = () => {
   return `${Math.random() * 100}vh`;

@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion } from "framer-motion";
 import React, {
   ReactNode,
   createContext,
@@ -68,18 +68,14 @@ export const ModalBody = ({
   children: ReactNode;
   className?: string;
 }) => {
-  const modalRef = useRef(null);
-
-  const { open } = useModal();
-  const { setOpen } = useModal();
-  useOutsideClick(modalRef, () => setOpen(false));
+  const { open, setOpen } = useModal();
 
   useEffect(() => {
-    const handleKeydown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", handleKeydown);
-    return () => document.removeEventListener("keydown", handleKeydown);
+    if (typeof window !== "undefined") {
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setOpen(false);
+      });
+    }
   }, [setOpen]);
   useEffect(() => {
     if (open) {
@@ -89,11 +85,22 @@ export const ModalBody = ({
     }
   }, [open]);
 
+  const modalRef = useRef(null);
+  useOutsideClick(modalRef, () => setOpen(false));
+
+  useEffect(() => {
+    if (open && modalRef.current) {
+      // focus modal container when opened for keyboard users
+      (modalRef.current as HTMLElement).focus();
+    }
+  }, [open]);
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
+          onWheel={(e) => e.stopPropagation()}
+          onScroll={(e) => e.stopPropagation()}
           initial={{
             opacity: 0,
           }}
@@ -111,12 +118,11 @@ export const ModalBody = ({
 
           <motion.div
             ref={modalRef}
-            role="dialog"
-            aria-modal="true"
             className={cn(
-              "min-h-[50%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
+              "min-h-[50%] max-h-[60%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
               className
             )}
+            tabIndex={-1}
             initial={{
               opacity: 0,
               scale: 0.5,
@@ -141,7 +147,7 @@ export const ModalBody = ({
             }}
           >
             <CloseIcon />
-            <ScrollArea className="h-[80dvh] w-full rounded-md border">
+            <ScrollArea className="h-full w-full rounded-md border">
               {children}
             </ScrollArea>
           </motion.div>
@@ -235,7 +241,7 @@ const CloseIcon = () => {
 // Hook to detect clicks outside of a component.
 // Add it in a separate file, I've added here for simplicity
 export const useOutsideClick = (
-  ref: React.RefObject<HTMLDivElement | null>,
+  ref: React.RefObject<HTMLDivElement>,
   callback: Function
 ) => {
   useEffect(() => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useAnimation, useInView } from "motion/react";
+import { motion, useAnimation, useInView } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { ReactNode, useEffect, useRef } from "react";
@@ -45,7 +45,7 @@ export const BlurIn = ({
 };
 
 interface BoxRevealProps {
-  children: React.JSX.Element;
+  children: JSX.Element;
   width?: "fit-content" | "100%";
   boxColor?: string;
   duration?: number;

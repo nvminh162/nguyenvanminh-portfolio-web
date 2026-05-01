@@ -1,5 +1,5 @@
 "use client";
-import { ChevronRight, Loader2 } from "lucide-react";
+import { Check, ChevronRight, Loader2 } from "lucide-react";
 import React from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/ace-input";
@@ -8,57 +8,59 @@ import { cn } from "@/lib/utils";
 import { useToast } from "./ui/use-toast";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
-import { z } from "zod";
 
-const formSchema = z.object({
-  fullName: z.string().min(2, "Full name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type FieldErrors = Partial<Record<keyof z.infer<typeof formSchema>, string>>;
+const EMAILJS_USER_ID = process.env.NEXT_PUBLIC_USER_ID;
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_TEMPLATE_ID;
 
 const ContactForm = () => {
   const [fullName, setFullName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-  const [errors, setErrors] = React.useState<FieldErrors>({});
 
   const { toast } = useToast();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrors({});
+    setLoading(true);
 
-    const result = formSchema.safeParse({ fullName, email, message });
-    if (!result.success) {
-      const fieldErrors: FieldErrors = {};
-      result.error.issues.forEach((issue) => {
-        const field = issue.path[0] as keyof FieldErrors;
-        if (!fieldErrors[field]) fieldErrors[field] = issue.message;
+    if (!EMAILJS_USER_ID || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+      toast({
+        title: "Configuration error",
+        description: "Email service is not configured correctly.",
+        variant: "destructive",
+        className: cn("top-0 mx-auto fixed"),
       });
-      setErrors(fieldErrors);
+      setLoading(false);
       return;
     }
 
-    setLoading(true);
     try {
-      const res = await fetch("/api/send", {
+      const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, email, message }),
+        body: JSON.stringify({
+          service_id: EMAILJS_SERVICE_ID,
+          template_id: EMAILJS_TEMPLATE_ID,
+          user_id: EMAILJS_USER_ID,
+          template_params: {
+            from_name: fullName,
+            reply_to: email,
+            message,
+          },
+        }),
       });
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || `Request failed (${res.status})`);
+        const errText = await res.text();
+        throw new Error(errText || "Failed to send message");
       }
       toast({
         title: "Thank you!",
         description: "I'll get back to you as soon as possible.",
         variant: "default",
-        className: cn("top-0 mx-auto flex fixed md:top-4 md:right-4"),
+        className: cn("top-0 mx-auto fixed"),
       });
       setLoading(false);
       setFullName("");
@@ -71,9 +73,9 @@ const ContactForm = () => {
     } catch (err) {
       toast({
         title: "Error",
-        description: "Something went wrong! Please try again.",
+        description: "Something went wrong! Please check the fields.",
         className: cn(
-          "top-0 w-full flex justify-center fixed md:max-w-7xl md:top-4 md:right-4"
+          "top-0 w-full mx-auto"
         ),
         variant: "destructive",
       });
@@ -81,7 +83,7 @@ const ContactForm = () => {
     setLoading(false);
   };
   return (
-    <form className="w-full mx-auto sm:mt-4" onSubmit={handleSubmit} aria-busy={loading}>
+    <form className="w-full mx-auto sm:mt-4" onSubmit={handleSubmit}>
       <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
         <LabelInputContainer>
           <Label htmlFor="fullname">Full name</Label>
@@ -89,10 +91,10 @@ const ContactForm = () => {
             id="fullname"
             placeholder="Your Name"
             type="text"
+            required
             value={fullName}
-            onChange={(e) => { setFullName(e.target.value); setErrors((p) => ({ ...p, fullName: undefined })); }}
+            onChange={(e) => setFullName(e.target.value)}
           />
-          {errors.fullName && <p className="text-sm text-red-500">{errors.fullName}</p>}
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
@@ -100,10 +102,10 @@ const ContactForm = () => {
             id="email"
             placeholder="you@example.com"
             type="email"
+            required
             value={email}
-            onChange={(e) => { setEmail(e.target.value); setErrors((p) => ({ ...p, email: undefined })); }}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
         </LabelInputContainer>
       </div>
       <div className="grid w-full gap-1.5 mb-4">
@@ -111,10 +113,10 @@ const ContactForm = () => {
         <Textarea
           placeholder="Tell me about about your project,"
           id="content"
+          required
           value={message}
-          onChange={(e) => { setMessage(e.target.value); setErrors((p) => ({ ...p, message: undefined })); }}
+          onChange={(e) => setMessage(e.target.value)}
         />
-        {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
         <p className="text-sm text-muted-foreground">
           I&apos;ll never share your data with anyone else. Pinky promise!
         </p>
