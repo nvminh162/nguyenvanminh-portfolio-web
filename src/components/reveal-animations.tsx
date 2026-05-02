@@ -3,7 +3,7 @@
 import { motion, useAnimation, useInView } from "framer-motion";
 
 import { cn } from "@/lib/utils";
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, ReactElement, useEffect, useRef } from "react";
 
 interface BlurIntProps {
   children: ReactNode;
@@ -45,7 +45,7 @@ export const BlurIn = ({
 };
 
 interface BoxRevealProps {
-  children: JSX.Element;
+  children: ReactElement;
   width?: "fit-content" | "100%";
   boxColor?: string;
   duration?: number;

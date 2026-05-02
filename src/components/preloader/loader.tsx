@@ -46,14 +46,15 @@ export default function Index() {
     dimension.height
   } Q${dimension.width / 2} ${dimension.height} 0 ${dimension.height}  L0 0`;
 
+  const cubicEase = [0.76, 0, 0.24, 1] as [number, number, number, number];
   const curve = {
     initial: {
       d: initialPath,
-      transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] },
+      transition: { duration: 0.7, ease: cubicEase },
     },
     exit: {
       d: targetPath,
-      transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 },
+      transition: { duration: 0.7, ease: cubicEase, delay: 0.3 },
     },
   };
 

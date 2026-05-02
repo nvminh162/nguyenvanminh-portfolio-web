@@ -2,7 +2,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
-import {
+import React, {
   Children,
   cloneElement,
   forwardRef,
@@ -51,10 +51,10 @@ const addClassNameRecursively = (
   const foo = (child: ReactNode) => {
     if (!isValidElement(child)) return child;
 
-    return cloneElement(child, {
-      // @ts-ignore
-      className: `${child.props.className || ""} ${className}`.trim(),
-      children: addClassNameRecursively(child.props.children, className),
+    const typedChild = child as React.ReactElement<{ className?: string; children?: ReactNode }>;
+    return cloneElement(typedChild, {
+      className: `${typedChild.props.className || ""} ${className}`.trim(),
+      children: addClassNameRecursively(typedChild.props.children, className),
     });
   };
   return Children.map(children, foo);

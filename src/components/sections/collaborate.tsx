@@ -40,7 +40,7 @@ const CollaborateSection = () => {
               <a
                 target="_blank"
                 href={`mailto:${contact.email}`}
-                className="text-gray-200 cursor-can-hover rounded-lg"
+                className="cursor-can-hover rounded-lg underline"
               >
                 {contact.email}
               </a>{" "}
