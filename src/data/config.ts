@@ -2,11 +2,12 @@ const config = {
   title: "@nvminh162 | Nguyen Van Minh",
   description: {
     long: "Explore the portfolio of Nguyen Van Minh, a full-stack developer and creative technologist specializing in interactive web experiences, 3D animations, and innovative projects. Discover my latest work, including Infin Global.io, BlockMed Pro, T-OTP based Authentication, AI Recommendation System, and more. Let's build something amazing together!",
-    short:
-      "Discover the portfolio of Nguyen Van Minh, a full-stack developer creating interactive web experiences and innovative projects.",
+    short: "Discover the portfolio of Nguyen Van Minh, a full-stack developer creating interactive web experiences and innovative projects.",
   },
   keywords: [
     "Nguyen Van Minh",
+    "nvminh162",
+    "@nvminh162",
     "portfolio",
     "full-stack developer",
     "creative technologist",
@@ -67,15 +68,12 @@ const config = {
     "Vim",
     "Vercel",
   ],
-  author: "Van Minh",
+  author: "Nguyen Van Minh",
   username: "@nvminh162",
   email: "nvminh162@gmail.com",
   phone: "+840353999798",
-  phoneDisplay: "+84 (VN) 0353.999.798",
+  phoneDisplay: "(VN) +84 0353.999.798",
   site: "https://nguyenvanminh.com",
-
-  // for github followers button
-  githubUsername: "nvminh162",
 
   get ogImg() {
     return this.site + "/assets/seo/og-image.png";

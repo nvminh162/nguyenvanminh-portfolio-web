@@ -54,9 +54,9 @@ const Header = ({ loader }: HeaderProps) => {
         </Link>
 
         <FunnyThemeToggle className="w-6 h-6 mr-4 flex" />
-        {config.githubUsername && (
+        {config.social.github && (
           <GitHubFollowersButton
-            username={config.githubUsername}
+            username={config.social.github}
             className="mr-4"
           />
         )}

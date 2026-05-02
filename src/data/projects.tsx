@@ -56,6 +56,22 @@ export const PROJECTS: SimpleProject[] = [
     url: "https://github.com/nvminh162/shopeefood-app",
     tech: ["javascript", "react", "framer-motion"],
   },
+  {
+    name: "Huong Bien 1 - Restaurant Management System",
+    imageKey: "gigachadtoken",
+    description: "(Desktop JavaFX) Restaurant management system for Huong Bien 1 - Single Server",
+    gradient: ["#7b4f22", "#060606"],
+    url: "https://github.com/NguyenNguyen0/HuongBien",
+    tech: ["javascript", "react", "tailwindcss"],
+  },
+  {
+    name: "Huong Bien 2 - Restaurant Management System",
+    imageKey: "carolinaweed",
+    description: "(Desktop JavaFX) Restaurant management system for Huong Bien 2 - Distributed Client-Server",
+    gradient: ["#fd7602", "#242220"],
+    url: "https://github.com/NguyenNguyen0/HuongBien2",
+    tech: ["javascript", "react", "tailwindcss"],
+  }
   // {
   //   name: "Flow XO",
   //   imageKey: "flowxo",
@@ -119,20 +135,4 @@ export const PROJECTS: SimpleProject[] = [
   //   url: "https://usa-med-premium.vercel.app/",
   //   tech: ["typescript", "react", "expo", "react-query"],
   // },
-  {
-    name: "Huong Bien 1 - Restaurant Management System",
-    imageKey: "gigachadtoken",
-    description: "(Desktop JavaFX) Restaurant management system for Huong Bien 1 - Single Server",
-    gradient: ["#7b4f22", "#060606"],
-    url: "https://github.com/NguyenNguyen0/HuongBien",
-    tech: ["javascript", "react", "tailwindcss"],
-  },
-  {
-    name: "Huong Bien 2 - Restaurant Management System",
-    imageKey: "carolinaweed",
-    description: "(Desktop JavaFX) Restaurant management system for Huong Bien 2 - Distributed Client-Server",
-    gradient: ["#fd7602", "#242220"],
-    url: "https://github.com/NguyenNguyen0/HuongBien2",
-    tech: ["javascript", "react", "tailwindcss"],
-  },
 ];
