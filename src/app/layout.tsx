@@ -105,7 +105,7 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <Providers>
           <Header />
           {children}

@@ -14,21 +14,22 @@ export const useSounds = () => {
         const ctx = new AudioContext();
         audioContextRef.current = ctx;
 
-        const response = await fetch('/assets/keycap-sounds/press.mp3');
-        const arrayBuffer = await response.arrayBuffer();
-        const decodedBuffer = await ctx.decodeAudioData(arrayBuffer);
-        pressBufferRef.current = decodedBuffer;
+        const loadBuffer = async (url: string): Promise<AudioBuffer | null> => {
+          try {
+            const res = await fetch(url);
+            if (!res.ok) return null;
+            const arrayBuffer = await res.arrayBuffer();
+            return await ctx.decodeAudioData(arrayBuffer);
+          } catch {
+            return null;
+          }
+        };
 
-        const releaseResponse = await fetch('/assets/keycap-sounds/release.mp3');
-        const releaseArrayBuffer = await releaseResponse.arrayBuffer();
-        const releaseDecodedBuffer = await ctx.decodeAudioData(releaseArrayBuffer);
-        releaseBufferRef.current = releaseDecodedBuffer;
-
-        const confettiResponse = await fetch('/assets/sounds/vine-boom.mp3');
-        const confettiArrayBuffer = await confettiResponse.arrayBuffer();
-        confettiBufferRef.current = await ctx.decodeAudioData(confettiArrayBuffer);
-      } catch (error) {
-        console.error("Failed to load keycap sound", error);
+        pressBufferRef.current = await loadBuffer('/assets/keycap-sounds/press.mp3');
+        releaseBufferRef.current = await loadBuffer('/assets/keycap-sounds/release.mp3');
+        confettiBufferRef.current = await loadBuffer('/assets/sounds/vine-boom.mp3');
+      } catch {
+        // Sound system unavailable — non-critical, fail silently
       }
     };
 

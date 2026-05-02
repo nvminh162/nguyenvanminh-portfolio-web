@@ -1,5 +1,5 @@
 const config = {
-  title: "Nguyen Van Minh | Full-Stack Developer",
+  title: "@nvminh162 | Nguyen Van Minh",
   description: {
     long: "Explore the portfolio of Nguyen Van Minh, a full-stack developer and creative technologist specializing in interactive web experiences, 3D animations, and innovative projects. Discover my latest work, including Infin Global.io, BlockMed Pro, T-OTP based Authentication, AI Recommendation System, and more. Let's build something amazing together!",
     short:

@@ -153,6 +153,11 @@
 }
 
 @layer base {
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
   body {
     scroll-behavior: smooth;
   }
@@ -184,6 +189,8 @@ body > canvas {
   .canvas-overlay-mode select,
   .canvas-overlay-mode textarea,
   .canvas-overlay-mode [role="button"],
+  .canvas-overlay-mode [data-lenis-prevent],
+  .canvas-overlay-mode [data-lenis-prevent] *,
   .canvas-overlay-mode p,
   .canvas-overlay-mode h1,
   .canvas-overlay-mode h2,
