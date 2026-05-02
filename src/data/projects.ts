@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Domain: Projects
 // techIds reference SKILLS catalogue — never duplicate skill definitions.
-// imageKey matches /public/assets/projects-screenshots/{imageKey}.jpg
+// imageKey matches /public/assets/projects/{imageKey}.jpg
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type ProjectCategory =
@@ -16,7 +16,7 @@ export type ProjectStatus = "completed" | "in-progress" | "archived";
 export type Project = {
   id: string;
   name: string;
-  /** Matches filename in /public/assets/projects-screenshots/ (without extension) */
+  /** Matches filename in /public/assets/projects/ (without extension) */
   imageKey: string;
   description: string;
   /** CSS gradient stop colours [from, to] */

@@ -5,7 +5,7 @@ import { blur, translate } from "../../anim";
 import { Link as LinkType } from "@/types";
 import { cn } from "@/lib/utils";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import FunnyThemeToggle from "@/components/theme/funny-theme-toggle";
 
 interface SelectedLink {
@@ -35,7 +35,7 @@ export default function Body({
   }, [params]);
 
   const getChars = (word: string) => {
-    let chars: JSX.Element[] = [];
+    const chars: JSX.Element[] = [];
     word.split("").forEach((char, i) => {
       chars.push(
         <motion.span

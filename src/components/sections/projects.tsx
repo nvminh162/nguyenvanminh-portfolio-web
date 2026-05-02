@@ -124,7 +124,7 @@ const ProjectCard = ({ project, isDesktop }: ProjectCardProps) => {
     });
   }, []);
 
-  const imageSrc = `/assets/projects-screenshots/${project.imageKey}.${
+  const imageSrc = `/assets/projects/${project.imageKey}.${
     imageExtensions[project.imageKey] ?? "jpg"
   }`;
 

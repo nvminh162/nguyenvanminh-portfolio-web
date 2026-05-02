@@ -24,12 +24,12 @@ const links: Link[] = [
   {
     title: 'Resume',
     href: '/#resume',
-    thumbnail: '/assets/nav-link-previews/landing.png'
+    thumbnail: '/assets/nav-link-previews/resume.png'
   },
   {
     title: 'Collaborate',
     href: '/#collaborate',
-    thumbnail: '/assets/nav-link-previews/contact.png'
+    thumbnail: '/assets/nav-link-previews/collaborate.png'
   },
   {
     title: 'Contact',
