@@ -42,7 +42,7 @@ const CollaborateSection = () => {
                 href={`mailto:${config.email}`}
                 className="text-gray-200 cursor-can-hover rounded-lg"
               >
-                {config.email.replace(/@/g, "(at)")}
+                {config.email}
               </a>{" "}
               or fill out the form and I&apos;ll get back to you.
             </CardDescription>
