@@ -5,6 +5,7 @@ import EasterEggs from "@/components/easter-eggs";
 import ElasticCursor from "@/components/ui/ElasticCursor";
 import { usePathname } from "next/navigation";
 import RadialMenu from "@/components/radial-menu/index";
+import ScrollToTop from "@/components/scroll-to-top";
 
 export default function AppOverlays() {
   const isHome = usePathname() === "/";
@@ -17,6 +18,7 @@ export default function AppOverlays() {
       <EasterEggs />
       <ElasticCursor />
       {isHome && <RadialMenu />}
+      <ScrollToTop />
     </>
   );
 }
