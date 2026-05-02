@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import styles from "./style.module.scss";
@@ -9,7 +10,10 @@ import { cn } from "@/lib/utils";
 import FunnyThemeToggle from "../theme/funny-theme-toggle";
 import { Button } from "../ui/button";
 import { config } from "@/data/config";
+import { logoAssets } from "@/data/assets";
 import { GitHubFollowersButton } from "../ui/shadcn-io/github-followers-button";
+import Image from "next/image";
+import { useTheme } from "next-themes";
 
 interface HeaderProps {
   loader?: boolean;
@@ -17,6 +21,11 @@ interface HeaderProps {
 
 const Header = ({ loader }: HeaderProps) => {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const logoSrc = mounted && resolvedTheme === "light" ? logoAssets.light : logoAssets.dark;
   return (
     <motion.header
       className={cn(
@@ -33,22 +42,13 @@ const Header = ({ loader }: HeaderProps) => {
         y: 0,
       }}
       transition={{
-        delay: loader ? 3.5 : 0, // 3.5 for loading, .5 can be added for delay
+        delay: loader ? 3.5 : 0,
         duration: 0.8,
       }}
     >
-      {/* <div
-        className="absolute inset-0 "
-        style={{
-          mask: "linear-gradient(rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 12.5%)",
-        }}
-      >
-      </div> */}
-      <div className={cn(styles.bar, "flex items-center justify-between")}>
+      <div className={cn(styles.bar, "flex items-center justify-between mt-2")}>
         <Link href="/" className="flex items-center justify-center">
-          <Button variant={"link"} className="text-3xl">
-            {config.username}
-          </Button>
+          <Image src={logoSrc} alt="logo" width={200} height={200} />
         </Link>
 
         <FunnyThemeToggle className="w-6 h-6 mr-4 flex" />
@@ -78,9 +78,8 @@ const Header = ({ loader }: HeaderProps) => {
             </motion.p>
           </div>
           <div
-            className={`${styles.burger} ${
-              isActive ? styles.burgerActive : ""
-            }`}
+            className={`${styles.burger} ${isActive ? styles.burgerActive : ""
+              }`}
           ></div>
         </Button>
       </div>

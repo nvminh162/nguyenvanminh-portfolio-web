@@ -15,6 +15,7 @@ import {
   ZoomOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { cvAssets } from "@/data/assets";
 
 const ResumePdfViewer = dynamic(
   () => import("./resume-pdf-viewer"),
@@ -27,8 +28,6 @@ const ResumePdfViewer = dynamic(
     ),
   }
 );
-
-const CV_PATH = "/nvminh162-cv.pdf";
 
 const ResumeSection = () => {
   const [numPages, setNumPages] = useState<number>(0);
@@ -117,7 +116,7 @@ const ResumeSection = () => {
 
             <div className="w-px h-6 bg-border mx-1" />
 
-            <a href={CV_PATH} download="nvminh162-cv.pdf">
+            <a href={cvAssets.path} download={cvAssets.fileName}>
               <Button className="flex items-center gap-2 h-8 px-4 text-sm">
                 <Download size={15} />
                 Download CV
@@ -138,7 +137,7 @@ const ResumeSection = () => {
           )}
         >
           <ResumePdfViewer
-            file={CV_PATH}
+            file={cvAssets.path}
             scale={scale}
             pageNumber={pageNumber}
             onLoadSuccess={onLoadSuccess}

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useAvatar, type AvatarVariant } from "@/contexts/avatar-context";
+import { portraitAssets } from "@/data/assets";
 import { usePreloader } from "./preloader";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
@@ -51,8 +52,8 @@ const AvatarPortrait = () => {
 
   const portraitSrc =
     mounted && resolvedTheme === "light"
-      ? "/nvminh162-light.png"
-      : "/nvminh162-dark.png";
+      ? portraitAssets.light
+      : portraitAssets.dark;
 
   const animate = variant
     ? CONFIG[variant][isMobile ? "mobile" : "desktop"]

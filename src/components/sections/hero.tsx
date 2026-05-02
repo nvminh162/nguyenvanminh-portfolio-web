@@ -15,7 +15,6 @@ import { config } from "@/data/config";
 import { useInView } from "framer-motion";
 import { useAvatar } from "@/contexts/avatar-context";
 import SectionWrapper from "../ui/section-wrapper";
-import { FaLinkedin } from "react-icons/fa6";
 
 const HeroSection = () => {
   const { isLoading } = usePreloader();
