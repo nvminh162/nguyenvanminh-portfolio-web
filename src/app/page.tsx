@@ -1,13 +1,13 @@
 "use client";
 
-import React from "react";
 import SmoothScroll from "@/components/smooth-scroll";
 import { cn } from "@/lib/utils";
 import AnimatedBackground from "@/components/animated-background";
 import SkillsSection from "@/components/sections/skills";
 import ExperienceSection from "@/components/sections/experience";
 import ProjectsSection from "@/components/sections/projects";
-import ContactSection from "@/components/sections/contact";
+import CollaborateSection from "@/components/sections/collaborate";
+import ContactInfoSection from "@/components/sections/contact";
 import HeroSection from "@/components/sections/hero";
 import ResumeSection from "@/components/sections/resume";
 import Script from "next/script";
@@ -46,7 +46,8 @@ function MainPage() {
         <ExperienceSection />
         <ProjectsSection />
         <ResumeSection />
-        <ContactSection />
+        <CollaborateSection />
+        <ContactInfoSection />
       </main>
     </SmoothScroll>
   );

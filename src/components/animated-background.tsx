@@ -47,7 +47,8 @@ const AnimatedBackground = () => {
       createTrigger("#experience", "experience", "skills"),
       createTrigger("#projects", "projects", "experience", "top 85%"),
       createTrigger("#resume", "resume", "projects"),
-      createTrigger("#contact", "contact", "resume", "top 30%"),
+      createTrigger("#collaborate", "collaborate", "resume", "top 30%"),
+      createTrigger("#contact", "contact", "collaborate", "top 30%"),
     ];
 
     return () => tls.forEach((t) => { t.scrollTrigger?.kill(); t.kill(); });

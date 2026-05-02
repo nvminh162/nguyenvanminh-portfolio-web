@@ -68,7 +68,10 @@ const config = {
     "Vercel",
   ],
   author: "Van Minh",
+  handle: "@nvminh162",
   email: "nvminh162@gmail.com",
+  phone: "+840353999798",
+  phoneDisplay: "+84 (VN) 0353.999.798",
   site: "https://nguyenvanminh.com",
 
   // for github followers button
@@ -78,9 +81,18 @@ const config = {
     return this.site + "/assets/seo/og-image.png";
   },
   social: {
-    upwork: "https://www.upwork.com/freelancers/nvminh162",
     linkedin: "https://www.linkedin.com/in/nvminh162",
     github: "https://github.com/nvminh162",
+    facebook: "https://www.facebook.com/nvminh162",
+    instagram: "https://www.instagram.com/nvminh162",
+    x: "https://x.com/nvminh162",
+    whatsapp: "https://wa.me/840353999798",
+    locket: "https://locket.cam/nvminh162",
+    tiktok: "https://www.tiktok.com/@nvminh162",
+    zalo: "https://zalo.me/0353999798",
+    telegram: "https://t.me/nvminh162",
+    leetcode: "https://leetcode.com/nvminh162",
+    codesandbox: "https://codesandbox.io/u/nvminh162",
   },
 };
 export { config };
