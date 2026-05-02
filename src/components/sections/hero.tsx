@@ -101,7 +101,7 @@ const HeroSection = () => {
                 <div className="md:self-start flex gap-3">
                   <Tooltip delayDuration={300}>
                     <TooltipTrigger asChild>
-                      <Link href={"#contact"}>
+                      <Link href={"/#collaborate"}>
                         <Button
                           variant={"outline"}
                           className="block w-full overflow-hidden"
@@ -111,20 +111,24 @@ const HeroSection = () => {
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
-                      <p>Yes, you can do it. 🥹 🙏</p>
+                      <p>Collaborate with me for any projects or ideas.</p>
                     </TooltipContent>
                   </Tooltip>
-                  <div className="flex items-center h-full gap-2">
-                    <Link
-                      href={config.social.linkedin}
-                      target="_blank"
-                      className="cursor-can-hover"
-                    >
-                      <Button variant={"outline"}>
-                        <FaLinkedin size={24} />
-                      </Button>
-                    </Link>
-                  </div>
+                  <Tooltip delayDuration={300}>
+                    <TooltipTrigger asChild>
+                      <Link href={"/#contact"}>
+                        <Button
+                          variant={"outline"}
+                          className="block w-full overflow-hidden"
+                        >
+                          Contact Me
+                        </Button>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      <p>Contact me for any questions or collaborations.</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
               </div>
             </div>

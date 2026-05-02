@@ -60,9 +60,9 @@ const ContactInfoSection = () => {
 
       <div className="flex flex-col items-center gap-8 px-4">
         {/* Handle */}
-        <p className="flex items-center gap-2 text-lg font-semibold text-muted-foreground">
+        <p className="flex items-center gap-2 text-lg font-semibold text-muted-foreground mt-3">
           <IoHeartCircle className="text-pink-500 text-xl" />
-          Connect: <span className="text-foreground">{config.handle}</span>
+          Connect: <span className="text-foreground">{config.username}</span>
         </p>
 
         {/* Primary: Email + Phone */}
@@ -106,12 +106,6 @@ const ContactInfoSection = () => {
             icon={<FaWhatsapp />}
             label="WhatsApp"
             className="bg-[#25D366]"
-          />
-          <ContactLink
-            href={config.social.locket}
-            icon={<IoHeartCircle />}
-            label="Locket"
-            className="bg-[#FF6B35]"
           />
           <ContactLink
             href={config.social.tiktok}
