@@ -2,7 +2,7 @@
 
 import React from "react";
 import { config } from "@/data/config";
-import { ALL_CONTACT_GROUPS, ContactLink, LocketIcon } from "@/data/contact";
+import { ALL_CONTACT_GROUPS, ContactLink } from "@/data/contact";
 import SectionWrapper from "../ui/section-wrapper";
 import { SectionHeader } from "./section-header";
 import { cn } from "@/lib/utils";
@@ -22,7 +22,16 @@ const ContactBtn = ({ href, icon, label, background, textColor }: Omit<ContactLi
       background,
     )}
   >
-    <span className="text-base shrink-0">{icon}</span>
+    <img
+      src={icon}
+      alt={label}
+      width={16}
+      height={16}
+      className={cn(
+        "w-4 h-4 shrink-0",
+        textColor === "text-black" ? "brightness-0" : "brightness-0 invert",
+      )}
+    />
     <span>{label}</span>
   </a>
 );
@@ -44,7 +53,9 @@ const ContactInfoSection = () => (
     <div className="flex flex-col items-center gap-8 px-4">
       {/* Handle badge */}
       <p className="flex items-center gap-2 text-lg font-semibold text-muted-foreground mt-3">
-        <LocketIcon className="text-pink-500 text-xl" />
+        <svg className="w-5 h-5 text-pink-500 shrink-0" viewBox="0 0 512 512" fill="currentColor">
+          <path d="M256 48C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48zm0 78c23.2 0 42 18.8 42 42s-18.8 42-42 42-42-18.8-42-42 18.8-42 42-42zm56 254h-48v-14h16V280h-16v-14h32v152h16v14z"/>
+        </svg>
         Connect:{" "}
         <span className="text-foreground">{config.username}</span>
       </p>

@@ -30,7 +30,7 @@ const config = {
 
   // ── Identity ──────────────────────────────────────────────────────────────
   /** Display name shown in the header and metadata */
-  author: "Nguyen Van Minh",
+  author: "Van Minh",
   /** Short handle shown in the header brand */
   username: "@nvminh162",
   /** Used by GitHubFollowersButton in the header */

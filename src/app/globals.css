@@ -153,6 +153,9 @@
 }
 
 @layer base {
+  html {
+    overflow-x: clip;
+  }
   body {
     scroll-behavior: smooth;
     overflow-x: clip;

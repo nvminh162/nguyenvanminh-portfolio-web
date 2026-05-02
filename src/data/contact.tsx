@@ -4,20 +4,6 @@
 // Components import `contact` for raw values, `ALL_CONTACT_GROUPS` for UI.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import {
-  FaEnvelope,
-  FaPhone,
-  FaFacebook,
-  FaInstagram,
-  FaXTwitter,
-  FaWhatsapp,
-  FaTiktok,
-  FaLinkedin,
-  FaTelegram,
-  FaGithub,
-} from "react-icons/fa6";
-import { SiLeetcode, SiCodesandbox, SiZalo } from "react-icons/si";
-import { IoHeartCircle } from "react-icons/io5";
 import { config } from "./config";
 
 // ─── Raw contact values ───────────────────────────────────────────────────────
@@ -48,7 +34,8 @@ export const contact = {
 export type ContactLink = {
   id: string;
   href: string;
-  icon: React.ReactNode;
+  /** Path to self-hosted SVG under /public/assets/contact/ */
+  icon: string;
   label: string;
   /** Tailwind bg-* class or arbitrary bg-[...] value */
   background: string;
@@ -63,14 +50,14 @@ export const PRIMARY_CONTACTS: ContactGroup = [
   {
     id: "email",
     href: `mailto:${contact.email}`,
-    icon: <FaEnvelope />,
+    icon: "/assets/contact/email.svg",
     label: contact.email,
     background: "bg-[#EA4335]",
   },
   {
     id: "phone",
     href: `tel:${contact.phone}`,
-    icon: <FaPhone />,
+    icon: "/assets/contact/phone.svg",
     label: contact.phoneDisplay,
     background: "bg-[#1877F2]",
   },
@@ -81,35 +68,35 @@ export const SOCIAL_ROW1: ContactGroup = [
   {
     id: "facebook",
     href: contact.social.facebook,
-    icon: <FaFacebook />,
+    icon: "/assets/contact/facebook.svg",
     label: "Facebook",
     background: "bg-[#1877F2]",
   },
   {
     id: "instagram",
     href: contact.social.instagram,
-    icon: <FaInstagram />,
+    icon: "/assets/contact/instagram.svg",
     label: "Instagram",
     background: "bg-gradient-to-br from-[#f9ce34] via-[#ee2a7b] to-[#6228d7]",
   },
   {
     id: "x",
     href: contact.social.x,
-    icon: <FaXTwitter />,
+    icon: "/assets/contact/x.svg",
     label: "X",
     background: "bg-[#14171A]",
   },
   {
     id: "whatsapp",
     href: contact.social.whatsapp,
-    icon: <FaWhatsapp />,
+    icon: "/assets/contact/whatsapp-icon.svg",
     label: "WhatsApp",
     background: "bg-[#25D366]",
   },
   {
     id: "tiktok",
     href: contact.social.tiktok,
-    icon: <FaTiktok />,
+    icon: "/assets/contact/tiktok-icon.svg",
     label: "TikTok",
     background: "bg-black",
   },
@@ -120,45 +107,38 @@ export const SOCIAL_ROW2: ContactGroup = [
   {
     id: "linkedin",
     href: contact.social.linkedin,
-    icon: <FaLinkedin />,
+    icon: "/assets/contact/linkedin.svg",
     label: "LinkedIn",
     background: "bg-[#0A66C2]",
   },
   {
     id: "telegram",
     href: contact.social.telegram,
-    icon: <FaTelegram />,
+    icon: "/assets/contact/telegram.svg",
     label: "Telegram",
     background: "bg-[#26A5E4]",
   },
   {
     id: "zalo",
     href: contact.social.zalo,
-    icon: <SiZalo />,
+    icon: "/assets/contact/zalo.svg",
     label: "Zalo",
     background: "bg-[#0068FF]",
   },
   {
     id: "github",
     href: contact.social.github,
-    icon: <FaGithub />,
+    icon: "/assets/contact/github.svg",
     label: "GitHub",
     background: "bg-[#24292e]",
   },
   {
     id: "leetcode",
     href: contact.social.leetcode,
-    icon: <SiLeetcode />,
+    icon: "/assets/contact/leetcode.svg",
     label: "Leetcode",
     background: "bg-[#FFA116]",
     textColor: "text-black",
-  },
-  {
-    id: "codesandbox",
-    href: contact.social.codesandbox,
-    icon: <SiCodesandbox />,
-    label: "CodeSandbox",
-    background: "bg-[#1c1c1c]",
   },
 ];
 
@@ -171,5 +151,3 @@ export const ALL_CONTACT_GROUPS: ContactGroup[] = [
 
 /** Flat list — useful for search / iteration */
 export const ALL_CONTACTS: ContactLink[] = ALL_CONTACT_GROUPS.flat();
-
-export { IoHeartCircle as LocketIcon };
