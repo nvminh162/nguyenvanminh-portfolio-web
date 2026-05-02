@@ -101,18 +101,10 @@ export const ModalBody = ({
         <motion.div
           onWheel={(e) => e.stopPropagation()}
           onScroll={(e) => e.stopPropagation()}
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-            backdropFilter: "blur(10px)",
-          }}
-          exit={{
-            opacity: 0,
-            backdropFilter: "blur(0px)",
-          }}
-          className="modall fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="modall fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full flex items-center justify-center z-50"
         >
           <Overlay />
 
@@ -194,20 +186,12 @@ const Overlay = ({ className }: { className?: string }) => {
   const { setOpen } = useModal();
   return (
     <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-        backdropFilter: "blur(10px)",
-      }}
-      exit={{
-        opacity: 0,
-        backdropFilter: "blur(0px)",
-      }}
-      className={`modal-overlay fixed inset-0 h-full w-full bg-black bg-opacity-50 z-50 ${className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={`modal-overlay fixed inset-0 h-full w-full bg-black/30 backdrop-blur-sm z-50 ${className}`}
       onClick={() => setOpen(false)}
-    ></motion.div>
+    />
   );
 };
 
