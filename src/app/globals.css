@@ -155,6 +155,7 @@
 @layer base {
   body {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
   * {
     @apply border-border outline-ring/50;

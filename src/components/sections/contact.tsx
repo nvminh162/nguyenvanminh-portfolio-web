@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Card,
   CardContent,
@@ -11,10 +11,21 @@ import ContactForm from "../ContactForm";
 import { config } from "@/data/config";
 import { SectionHeader } from "./section-header";
 import SectionWrapper from "../ui/section-wrapper";
+import { useInView } from "framer-motion";
+import { useAvatar } from "@/contexts/avatar-context";
 
 const ContactSection = () => {
+  const { show, hide } = useAvatar();
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { amount: 0.25 });
+
+  useEffect(() => {
+    if (inView) show("contact");
+    else hide();
+  }, [inView]);
+
   return (
-    <SectionWrapper id="contact" className="min-h-[100dvh] max-w-7xl mx-auto ">
+    <SectionWrapper id="contact" className="min-h-[100dvh] max-w-7xl mx-auto " ref={sectionRef}>
       <SectionHeader id='contact' className="relative mb-14" title={
         <>
           LET&apos;S WORK <br />

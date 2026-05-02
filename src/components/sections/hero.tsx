@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -12,21 +13,30 @@ import { BlurIn, BoxReveal } from "../reveal-animations";
 import ScrollDownIcon from "../scroll-down-icon";
 import { SiGithub, SiUpwork } from "react-icons/si";
 import { config } from "@/data/config";
-
+import { useInView } from "framer-motion";
+import { useAvatar } from "@/contexts/avatar-context";
 import SectionWrapper from "../ui/section-wrapper";
 
 const HeroSection = () => {
   const { isLoading } = usePreloader();
+  const { show, hide } = useAvatar();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(sectionRef, { amount: 0.3 });
+
+  useEffect(() => {
+    if (inView) show("hero");
+    else hide();
+  }, [inView]);
 
   return (
-    <SectionWrapper id="hero" className={cn("relative w-full h-[100dvh]")}>
+    <SectionWrapper id="hero" className={cn("relative w-full h-[100dvh]")} ref={sectionRef}>
       <div className="grid md:grid-cols-2">
         <div
           className={cn(
             "h-[calc(100dvh-3rem)] md:h-[calc(100dvh-4rem)] z-[2]",
             "col-span-1",
             "flex flex-col justify-start md:justify-center items-center md:items-start",
-            "pt-28 sm:pb-16 md:p-20 lg:p-24 xl:p-28"
+            "pt-28 sm:pb-16 md:pl-20 md:pr-2 md:py-20 lg:pl-50 lg:py-24 xl:pl-50 xl:py-28"
           )}
         >
           {!isLoading && (

@@ -3,8 +3,8 @@
 import Preloader from "./preloader";
 import { ThemeProvider } from "./theme-provider";
 import { Toaster } from "./ui/toaster";
-
 import { TooltipProvider } from "./ui/tooltip";
+import { AvatarProvider } from "@/contexts/avatar-context";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -13,10 +13,12 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
       defaultTheme="dark"
       disableTransitionOnChange
     >
-      <Preloader>
-        <TooltipProvider>{children}</TooltipProvider>
-        <Toaster />
-      </Preloader>
+      <AvatarProvider>
+        <Preloader>
+          <TooltipProvider>{children}</TooltipProvider>
+          <Toaster />
+        </Preloader>
+      </AvatarProvider>
     </ThemeProvider>
   );
 };
