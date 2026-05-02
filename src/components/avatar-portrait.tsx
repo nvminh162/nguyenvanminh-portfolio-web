@@ -9,11 +9,6 @@ import { useAvatar, type AvatarVariant } from "@/contexts/avatar-context";
 import { usePreloader } from "./preloader";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Single source of truth — edit ONLY this object to adjust avatar positions.
-// x/y are pixel offsets applied via framer-motion on top of the base CSS anchor
-// (right: 5vw, top: 13vh). Positive x = move right, positive y = move down.
-// ─────────────────────────────────────────────────────────────────────────────
 type MotionValues = { x: number; y: number; opacity: number };
 
 const CONFIG: Record<
@@ -53,12 +48,6 @@ const AvatarPortrait = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
-
-  // Auto-show / auto-hide based on route
-  useEffect(() => {
-    if (pathname === "/about") show("about");
-    else if (pathname !== "/") hide();
-  }, [pathname]);
 
   const portraitSrc =
     mounted && resolvedTheme === "light"
