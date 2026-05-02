@@ -1,8 +1,8 @@
 "use client";
 
 import Lottie from "lottie-react";
-import { Button } from "./button";
-import { ModalBody, ModalContent, useModal } from "./animated-modal";
+import { Button } from "./ui/button";
+import { ModalBody, ModalContent, useModal } from "./ui/animated-modal";
 
 interface ComingSoonModalProps {
   /** Main heading text */
