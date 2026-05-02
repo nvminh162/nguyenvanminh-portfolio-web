@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Section } from "./animated-background-config";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,7 +15,6 @@ gsap.registerPlugin(ScrollTrigger);
  */
 const AnimatedBackground = () => {
   const isMobile = useMediaQuery("(max-width: 767px)");
-  const router = useRouter();
   const pathname = usePathname();
 
   const [activeSection, setActiveSection] = useState<Section>("hero");
@@ -54,12 +53,12 @@ const AnimatedBackground = () => {
     return () => tls.forEach((t) => { t.scrollTrigger?.kill(); t.kill(); });
   }, [isMobile, pathname]);
 
-  // Sync URL hash
+  // Sync URL hash — use replaceState to avoid double-hash from router.push
   useEffect(() => {
     if (pathname !== "/") return;
-    const hash = activeSection === "hero" ? "#" : `#${activeSection}`;
-    router.push(`/${hash}`, { scroll: false });
-  }, [activeSection, router, pathname]);
+    const hash = activeSection === "hero" ? "" : `#${activeSection}`;
+    window.history.replaceState(null, "", `/${hash}`);
+  }, [activeSection, pathname]);
 
   return null;
 };
