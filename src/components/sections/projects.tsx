@@ -204,12 +204,12 @@ const ProjectCard = ({ project, isDesktop }: ProjectCardProps) => {
           <div className="flex flex-col pb-8">
             {project.tech.map((el, i) => (
               <Image
-                className={`${i % 2 === 0 && "ml-16"} mb-4`}
+                className={`${i % 2 === 0 ? "ml-16" : ""} mb-4 self-start`}
                 src={`/assets/tech/${el}.svg`}
                 alt={el}
                 width={45}
                 height={45}
-                style={{ width: 45, height: "auto" }}
+                unoptimized
                 key={el}
               />
             ))}

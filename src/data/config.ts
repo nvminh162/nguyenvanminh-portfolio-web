@@ -75,22 +75,26 @@ const config = {
   phoneDisplay: "(VN) +84 0353.999.798",
   site: "https://nguyenvanminh.com",
   githubUsername: "nvminh162",
-  
+
   get ogImg() {
     return this.site + "/assets/seo/og-image.png";
   },
-  social: {
-    linkedin: "https://www.linkedin.com/in/nvminh162",
-    github: "https://github.com/nvminh162",
-    facebook: "https://www.facebook.com/nvminh162",
-    instagram: "https://www.instagram.com/nvminh162",
-    x: "https://x.com/nvminh162",
-    whatsapp: "https://wa.me/840353999798",
-    tiktok: "https://www.tiktok.com/@nvminh162",
-    zalo: "https://zalo.me/0353999798",
-    telegram: "https://t.me/nvminh162",
-    leetcode: "https://leetcode.com/nvminh162",
-    codesandbox: "https://codesandbox.io/u/nvminh162",
+  get social() {
+    const gh = this.githubUsername;
+    return {
+      // derived — never duplicated with githubUsername
+      github: `https://github.com/${gh}`,
+      linkedin: "https://www.linkedin.com/in/nvminh162",
+      facebook: "https://www.facebook.com/nvminh162",
+      instagram: "https://www.instagram.com/nvminh162",
+      x: "https://x.com/nvminh162",
+      whatsapp: "https://wa.me/840353999798",
+      tiktok: "https://www.tiktok.com/@nvminh162",
+      zalo: "https://zalo.me/0353999798",
+      telegram: "https://t.me/nvminh162",
+      leetcode: "https://leetcode.com/nvminh162",
+      codesandbox: "https://codesandbox.io/u/nvminh162",
+    };
   },
 };
 export { config };
