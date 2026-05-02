@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import styles from "./style.module.scss";
 import { opacity } from "../../anim";
-import { cn } from "@/lib/utils";
 
 interface IndexProps {
   src: string;
@@ -24,7 +23,6 @@ const Index: React.FC<IndexProps> = ({ src, isActive }) => {
         height={400}
         className="my-32 w-full h-auto object-cover"
         alt={"Image"}
-        // priority={true}
       />
     </motion.div>
   );
