@@ -5,7 +5,7 @@ const config = {
     short: "Discover the portfolio of Nguyen Van Minh, a full-stack developer creating interactive web experiences and innovative projects.",
   },
   keywords: [
-    "Nguyen Van Minh",
+    "Van Minh",
     "nvminh162",
     "@nvminh162",
     "portfolio",
@@ -74,7 +74,8 @@ const config = {
   phone: "+840353999798",
   phoneDisplay: "(VN) +84 0353.999.798",
   site: "https://nguyenvanminh.com",
-
+  githubUsername: "nvminh162",
+  
   get ogImg() {
     return this.site + "/assets/seo/og-image.png";
   },

@@ -25,8 +25,6 @@ const Header = ({ loader }: HeaderProps) => {
       )}
       style={{
         background: isActive ? "hsl(var(--background) / .8)" : "transparent",
-        // backgroundImage:
-        //   "linear-gradient(0deg, rgba(0, 0, 0, 0), rgb(0, 0, 0))",
       }}
       initial={{
         y: -80,
@@ -54,9 +52,9 @@ const Header = ({ loader }: HeaderProps) => {
         </Link>
 
         <FunnyThemeToggle className="w-6 h-6 mr-4 flex" />
-        {config.social.github && (
+        {config.githubUsername && (
           <GitHubFollowersButton
-            username={config.social.github}
+            username={config.githubUsername}
             className="mr-4"
           />
         )}

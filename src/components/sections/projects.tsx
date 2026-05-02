@@ -112,6 +112,7 @@ type ProjectCardProps = {
 const imageExtensions: Record<string, string> = {
   jiniz: "jpg",
 };
+// All current screenshots are .jpg — default fallback used below
 
 const ProjectCard = ({ project, isDesktop }: ProjectCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -124,7 +125,7 @@ const ProjectCard = ({ project, isDesktop }: ProjectCardProps) => {
   }, []);
 
   const imageSrc = `/assets/projects-screenshots/${project.imageKey}.${
-    imageExtensions[project.imageKey] ?? "png"
+    imageExtensions[project.imageKey] ?? "jpg"
   }`;
 
   return (
@@ -161,6 +162,7 @@ const ProjectCard = ({ project, isDesktop }: ProjectCardProps) => {
           alt="project"
           className="absolute top-0 left-0 w-full h-full opacity-20 rounded-3xl object-cover pointer-events-none"
           fill
+          loading="eager"
         />
         <Image
           src={imageSrc}
@@ -169,12 +171,12 @@ const ProjectCard = ({ project, isDesktop }: ProjectCardProps) => {
             "absolute top-0 bottom-auto left-auto rounded-xl shadow-xl object-contain",
             "w-[12rem] sm:w-[15rem] md:w-[17rem]",
             "rotate-[-22.5deg]",
-            "h-auto min-w-0 max-h-none",
+            "min-w-0 max-h-none",
             "z-0"
           )}
           sizes="(min-width: 1024px) 272px, (min-width: 640px) 240px, 192px"
           priority={false}
-          style={{ right: "1.5rem" }}
+          style={{ right: "1.5rem", height: "auto" }}
           width={400}
           height={400}
         />
@@ -205,8 +207,9 @@ const ProjectCard = ({ project, isDesktop }: ProjectCardProps) => {
                 className={`${i % 2 === 0 && "ml-16"} mb-4`}
                 src={`/assets/tech/${el}.svg`}
                 alt={el}
-                height={45}
                 width={45}
+                height={45}
+                style={{ width: 45, height: "auto" }}
                 key={el}
               />
             ))}
