@@ -29,7 +29,7 @@ const CONFIG: Record<
   },
   contact: {
     desktop: { x: -64,  y: 108, opacity: 1 },
-    mobile:  { x: -74,  y: -44, opacity: 1 },
+    mobile:  { x: -74,  y: -44, opacity: 0 },
   },
 };
 
