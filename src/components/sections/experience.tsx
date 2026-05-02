@@ -1,4 +1,4 @@
-import { EXPERIENCE, SkillNames, SKILLS } from "@/data/constants";
+import { EXPERIENCE_RESOLVED, ExperienceResolved } from "@/data/experience";
 import { SectionHeader } from "./section-header";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
@@ -23,15 +23,15 @@ const ExperienceSection = () => {
         <div
           className="relative flex flex-col gap-8 md:block"
           style={{
-            minHeight: `calc(${EXPERIENCE.length} * 70vh)`,
+            minHeight: `calc(${EXPERIENCE_RESOLVED.length} * 70vh)`,
           }}
         >
-          {EXPERIENCE.map((exp, index) => (
+          {EXPERIENCE_RESOLVED.map((exp, index) => (
             <ExperienceCard
               key={exp.id}
               experience={exp}
               index={index}
-              total={EXPERIENCE.length}
+              total={EXPERIENCE_RESOLVED.length}
             />
           ))}
         </div>
@@ -44,7 +44,7 @@ const ExperienceCard = ({
   experience,
   index,
 }: {
-  experience: (typeof EXPERIENCE)[0];
+  experience: ExperienceResolved;
   index: number;
   total: number;
 }) => {
@@ -85,7 +85,7 @@ const ExperienceCard = ({
               variant="secondary"
               className="w-fit font-mono text-xs font-normal"
             >
-              {experience.startDate} - {experience.endDate}
+              {experience.startDate} – {experience.endDate ?? "Present"}
             </Badge>
           </div>
         </CardHeader>
@@ -97,23 +97,20 @@ const ExperienceCard = ({
           </ul>
 
           <div className="flex flex-wrap gap-2">
-            {experience.skills.map((skillName) => {
-              const skill = SKILLS[skillName as SkillNames];
-              return (
-                <Badge
-                  key={skillName}
-                  variant="outline"
-                  className="gap-2 text-xs font-normal bg-secondary/30 hover:bg-secondary/50 transition-colors border-transparent"
-                >
-                  <img
-                    src={skill.icon}
-                    alt={skill.label}
-                    className="w-3.5 h-3.5 object-contain opacity-80"
-                  />
-                  {skill.label}
-                </Badge>
-              );
-            })}
+            {experience.skills.map((skill) => (
+              <Badge
+                key={skill.id}
+                variant="outline"
+                className="gap-2 text-xs font-normal bg-secondary/30 hover:bg-secondary/50 transition-colors border-transparent"
+              >
+                <img
+                  src={skill.icon}
+                  alt={skill.label}
+                  className="w-3.5 h-3.5 object-contain opacity-80"
+                />
+                {skill.label}
+              </Badge>
+            ))}
           </div>
         </CardContent>
       </Card>

@@ -1,61 +1,10 @@
-import { SkillNames, SKILLS } from "@/data/constants";
+import { getSkillById, SKILL_STACKS, SkillStack } from "@/data/skills";
 import { SectionHeader } from "./section-header";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import SectionWrapper from "../ui/section-wrapper";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-const SKILL_STACK: {
-  id: string;
-  title: string;
-  subtitle: string;
-  tag: string;
-  highlights: string[];
-  skills: SkillNames[];
-}[] = [
-  {
-    id: "frontend",
-    title: "Frontend Stack",
-    subtitle: "UI & Interaction",
-    tag: "Core",
-    highlights: [
-      "Build responsive interfaces with reusable components and clean composition patterns.",
-      "Focus on performance and accessibility for smooth interactions across devices.",
-      "Prefer scalable styling systems for fast iteration and consistent UI.",
-    ],
-    skills: [
-      SkillNames.REACT,
-      SkillNames.NEXTJS,
-      SkillNames.TS,
-      SkillNames.TAILWIND,
-      SkillNames.HTML,
-      SkillNames.CSS,
-    ],
-  },
-  {
-    id: "backend-devops",
-    title: "Backend & DevOps Stack",
-    subtitle: "API, Data & Deployment",
-    tag: "Daily",
-    highlights: [
-      "Design API flows with maintainable service layers and clear data contracts.",
-      "Work with relational and document databases depending on product needs.",
-      "Ship with practical CI/CD and deployment workflows for reliable releases.",
-    ],
-    skills: [
-      SkillNames.NODEJS,
-      SkillNames.EXPRESS,
-      SkillNames.POSTGRES,
-      SkillNames.MONGODB,
-      SkillNames.DOCKER,
-      SkillNames.AWS,
-      SkillNames.GIT,
-      SkillNames.GITHUB,
-      SkillNames.VERCEL,
-    ],
-  },
-];
 
 const SkillsSection = () => {
   return (
@@ -74,11 +23,11 @@ const SkillsSection = () => {
         <div
           className="relative flex flex-col gap-8 md:block"
           style={{
-            minHeight: `calc(${SKILL_STACK.length} * 70vh)`,
+            minHeight: `calc(${SKILL_STACKS.length} * 70vh)`,
           }}
         >
-          {SKILL_STACK.map((stackItem, index) => (
-            <SkillStackCard key={stackItem.id} stackItem={stackItem} index={index} total={SKILL_STACK.length} />
+          {SKILL_STACKS.map((stackItem, index) => (
+            <SkillStackCard key={stackItem.id} stackItem={stackItem} index={index} total={SKILL_STACKS.length} />
           ))}
         </div>
       </div>
@@ -90,7 +39,7 @@ const SkillStackCard = ({
   stackItem,
   index,
 }: {
-  stackItem: (typeof SKILL_STACK)[0];
+  stackItem: SkillStack;
   index: number;
   total: number;
 }) => {
@@ -143,11 +92,12 @@ const SkillStackCard = ({
           </ul>
 
           <div className="flex flex-wrap gap-2">
-            {stackItem.skills.map((skillName) => {
-              const skill = SKILLS[skillName];
+            {stackItem.skillIds.map((skillId) => {
+              const skill = getSkillById(skillId);
+              if (!skill) return null;
               return (
                 <Badge
-                  key={skillName}
+                  key={skillId}
                   variant="outline"
                   className="gap-2 text-xs font-normal bg-secondary/30 hover:bg-secondary/50 transition-colors border-transparent"
                 >

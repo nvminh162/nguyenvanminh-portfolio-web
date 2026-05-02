@@ -6,7 +6,7 @@ import { flushSync } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useToast } from "../ui/use-toast";
-import { themeDisclaimers } from "@/data/constants";
+import { themeDisclaimers } from "@/data/theme";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 export default function FunnyThemeToggle({

@@ -6,7 +6,7 @@ import { SectionHeader } from "./section-header";
 import { cn } from "@/lib/utils";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { PROJECTS, SimpleProject } from "@/data/projects";
+import { PROJECTS, Project } from "@/data/projects";
 
 const tiltOptions = {
   max: 5,
@@ -105,7 +105,7 @@ const ProjectsSection = () => {
 };
 
 type ProjectCardProps = {
-  project: SimpleProject;
+  project: Project;
   isDesktop: boolean;
 };
 
@@ -202,7 +202,7 @@ const ProjectCard = ({ project, isDesktop }: ProjectCardProps) => {
           style={{ transform: "rotate(-22.5deg) translateZ(3rem)" }}
         >
           <div className="flex flex-col pb-8">
-            {project.tech.map((el, i) => (
+            {project.techIds.map((el, i) => (
               <Image
                 className={`${i % 2 === 0 ? "ml-16" : ""} mb-4 self-start`}
                 src={`/assets/tech/${el}.svg`}

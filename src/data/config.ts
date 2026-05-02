@@ -1,100 +1,46 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Site-level config — SEO metadata + identity.
+// Contact info (email, phone, socials) lives in src/data/contact.tsx.
+// ─────────────────────────────────────────────────────────────────────────────
+
 const config = {
+  // ── SEO ───────────────────────────────────────────────────────────────────
   title: "@nvminh162 | Nguyen Van Minh",
   description: {
-    long: "Explore the portfolio of Nguyen Van Minh, a full-stack developer and creative technologist specializing in interactive web experiences, 3D animations, and innovative projects. Discover my latest work, including Infin Global.io, BlockMed Pro, T-OTP based Authentication, AI Recommendation System, and more. Let's build something amazing together!",
-    short: "Discover the portfolio of Nguyen Van Minh, a full-stack developer creating interactive web experiences and innovative projects.",
+    long: "Explore the portfolio of Nguyen Van Minh, a full-stack developer and creative technologist specialising in interactive web experiences, 3D animations, and innovative projects.",
+    short:
+      "Portfolio of Nguyen Van Minh — full-stack developer creating interactive web experiences.",
   },
   keywords: [
-    "Van Minh",
+    "Nguyen Van Minh",
     "nvminh162",
-    "@nvminh162",
     "portfolio",
     "full-stack developer",
     "creative technologist",
     "web development",
     "3D animations",
     "interactive websites",
-    "BlockMed Pro",
-    "Black Gold Salajeet",
-    "Infin Global",
-    "MoonVault",
-    "Hope Ledger",
-    "Flow XO",
-    "Aiman Creates",
-    "NeanderBros",
-    "Golden Years",
-    "Giga Chad",
-    "Carolina Weed",
-    "Jiniz",
-    "Zera",
-    "USA Med Premium",
-    "web design",
-    "GSAP",
     "React",
     "Next.js",
     "Tailwind CSS",
     "TypeScript",
-    "Spline",
+    "GSAP",
     "Framer Motion",
-    "VanillaTilt",
-    "full stack developer portfolio",
-    "full stack engineer",
-    "full stack developer Next.js",
-    "MERN stack engineer",
-    "full stack web developer",
-    "React full stack portfolio",
-    "JavaScript",
-    "TypeScript developer",
-    "HTML5",
-    "CSS3",
-    "React developer",
-    "Vue developer",
-    "Next.js developer",
-    "Tailwind CSS developer",
-    "Node.js developer",
-    "Express.js",
-    "PostgreSQL",
-    "MongoDB",
-    "Git",
-    "GitHub",
-    "Prettier",
-    "npm",
-    "Firebase",
-    "WordPress",
-    "Linux",
-    "Docker",
-    "Nginx",
-    "AWS",
-    "Vim",
-    "Vercel",
   ],
+
+  // ── Identity ──────────────────────────────────────────────────────────────
+  /** Display name shown in the header and metadata */
   author: "Nguyen Van Minh",
+  /** Short handle shown in the header brand */
   username: "@nvminh162",
-  email: "nvminh162@gmail.com",
-  phone: "+840353999798",
-  phoneDisplay: "(VN) +84 0353.999.798",
-  site: "https://nguyenvanminh.com",
+  /** Used by GitHubFollowersButton in the header */
   githubUsername: "nvminh162",
+  /** Canonical site URL */
+  site: "https://nguyenvanminh.com",
 
   get ogImg() {
     return this.site + "/assets/seo/og-image.png";
   },
-  get social() {
-    const gh = this.githubUsername;
-    return {
-      // derived — never duplicated with githubUsername
-      github: `https://github.com/${gh}`,
-      linkedin: "https://www.linkedin.com/in/nvminh162",
-      facebook: "https://www.facebook.com/nvminh162",
-      instagram: "https://www.instagram.com/nvminh162",
-      x: "https://x.com/nvminh162",
-      whatsapp: "https://wa.me/840353999798",
-      tiktok: "https://www.tiktok.com/@nvminh162",
-      zalo: "https://zalo.me/0353999798",
-      telegram: "https://t.me/nvminh162",
-      leetcode: "https://leetcode.com/nvminh162",
-      codesandbox: "https://codesandbox.io/u/nvminh162",
-    };
-  },
 };
+
 export { config };

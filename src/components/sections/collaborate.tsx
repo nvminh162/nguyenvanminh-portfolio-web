@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ContactForm from "../ContactForm";
-import { config } from "@/data/config";
+import { contact } from "@/data/contact";
 import { SectionHeader } from "./section-header";
 import SectionWrapper from "../ui/section-wrapper";
 import { useInView } from "framer-motion";
@@ -39,10 +39,10 @@ const CollaborateSection = () => {
               Have an idea or a project in mind? Reach me at{" "}
               <a
                 target="_blank"
-                href={`mailto:${config.email}`}
+                href={`mailto:${contact.email}`}
                 className="text-gray-200 cursor-can-hover rounded-lg"
               >
-                {config.email}
+                {contact.email}
               </a>{" "}
               or fill out the form and I&apos;ll get back to you.
             </CardDescription>
