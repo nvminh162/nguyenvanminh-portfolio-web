@@ -119,7 +119,7 @@ function thankYouHtml(name: string) {
             <p style="margin:0 0 32px;font-size:15px;color:#9ca3af;">
               In the meantime, feel free to explore my work or connect with me on social media.
             </p>
-            <a href="https://nguyenvanminh.com" style="display:inline-block;background:linear-gradient(135deg,#10b981,#059669);color:#fff;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:600;font-size:15px;letter-spacing:.5px;">
+            <a href="https://nvminh162.id.vn" style="display:inline-block;background:linear-gradient(135deg,#10b981,#059669);color:#fff;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:600;font-size:15px;letter-spacing:.5px;">
               Visit Portfolio →
             </a>
           </td>

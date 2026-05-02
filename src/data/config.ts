@@ -36,7 +36,7 @@ const config = {
   /** Used by GitHubFollowersButton in the header */
   githubUsername: "nvminh162",
   /** Canonical site URL */
-  site: "https://nguyenvanminh.com",
+  site: "https://nvminh162.id.vn",
 
   get ogImg() {
     return this.site + "/assets/seo/og-image.png";

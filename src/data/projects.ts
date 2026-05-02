@@ -35,7 +35,7 @@ export const PROJECTS: Project[] = [
     imageKey: "portfolio",
     description: "Personal portfolio website with 3-D animations and interactive sections.",
     gradient: ["#6142ff", "#8c3a61"],
-    url: "https://nguyenvanminh.com",
+    url: "https://nvminh162.id.vn",
     techIds: ["typescript", "nextjs", "tailwindcss", "framer-motion", "gsap"],
     category: "web",
     status: "completed",
