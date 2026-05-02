@@ -105,7 +105,7 @@ function thankYouHtml(name: string) {
         <!-- Header -->
         <tr>
           <td style="background:linear-gradient(135deg,#10b981,#059669);padding:32px 40px;text-align:center;">
-            <p style="margin:0;font-size:36px;">🎉</p>
+            <p style="margin:0;font-size:36px;"></p>
             <h1 style="margin:12px 0 0;font-size:26px;color:#fff;font-weight:700;">Thanks for reaching out, ${name}!</h1>
           </td>
         </tr>
