@@ -4,8 +4,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const logoAssets = {
-  dark:  "/logo/nguyenvanminh-logo-name-dark.png",
-  light: "/logo/nguyenvanminh-logo-name-light.png",
+  dark:  "/logo/nguyenvanminh-logo-only-dark.png",
+  light: "/logo/nguyenvanminh-logo-only-light.png",
 } as const;
 
 export const portraitAssets = {
