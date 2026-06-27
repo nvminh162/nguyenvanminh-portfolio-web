@@ -166,6 +166,9 @@
   html {
     @apply font-sans;
   }
+  section {
+    scroll-margin-top: 72px;
+  }
 }
 
 /* canvas-confetti injects a canvas with inline z-index */

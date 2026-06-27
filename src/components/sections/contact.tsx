@@ -6,6 +6,7 @@ import { ALL_CONTACT_GROUPS, ContactLink } from "@/data/contact";
 import SectionWrapper from "../ui/section-wrapper";
 import { SectionHeader } from "./section-header";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 // ─── single button ────────────────────────────────────────────────────────
 const ContactBtn = ({ href, icon, label, background, textColor }: Omit<ContactLink, "id">) => (
@@ -22,15 +23,17 @@ const ContactBtn = ({ href, icon, label, background, textColor }: Omit<ContactLi
       background,
     )}
   >
-    <img
+    <Image
       src={icon}
       alt={label}
       width={16}
       height={16}
+      style={{ width: "16px", height: "auto" }}
       className={cn(
-        "w-4 h-4 shrink-0",
+        "shrink-0",
         textColor === "text-black" ? "brightness-0" : "brightness-0 invert",
       )}
+      unoptimized
     />
     <span>{label}</span>
   </a>

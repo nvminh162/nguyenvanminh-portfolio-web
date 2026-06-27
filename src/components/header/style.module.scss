@@ -5,7 +5,7 @@
   width: 100%;
   box-sizing: border-box;
   inset: env(safe-area-inset-top, 0px) 0 auto 0;
-  padding: calc(15px + env(safe-area-inset-top, 0px)) 15px 15px 15px;
+  padding: calc(6px + env(safe-area-inset-top, 0px)) 12px 6px 12px;
   backdrop-filter: blur(12px);
 
   .background {
@@ -21,6 +21,7 @@
   .bar {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     text-transform: lowercase;
     font-size: 12px;
     font-weight: 400;

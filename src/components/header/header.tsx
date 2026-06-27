@@ -23,7 +23,10 @@ const Header = ({ loader }: HeaderProps) => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setMounted(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   const logoSrc = mounted && resolvedTheme === "light" ? logoAssets.light : logoAssets.dark;
   return (
@@ -46,16 +49,23 @@ const Header = ({ loader }: HeaderProps) => {
         duration: 0.8,
       }}
     >
-      <div className={cn(styles.bar, "flex items-center justify-between mt-2")}>
+      <div className={cn(styles.bar, "flex items-center justify-between")}>
         <Link href="/" className="flex items-center justify-center">
-          <Image src={logoSrc} alt="logo" width={180} height={180} />
+          <Image
+            src={logoSrc}
+            alt="logo"
+            width={180}
+            height={180}
+            className="h-11 w-auto md:h-[3.25rem]"
+            loading="eager"
+          />
         </Link>
 
-        <FunnyThemeToggle className="w-6 h-6 mr-4 flex" />
+        <FunnyThemeToggle className="w-5 h-5 mr-2 md:mr-4 flex" />
         {config.githubUsername && (
           <GitHubFollowersButton
             username={config.githubUsername}
-            className="mr-4"
+            className="mr-2 md:mr-4"
           />
         )}
         <Button

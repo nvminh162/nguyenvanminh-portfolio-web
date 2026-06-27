@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Domain: Skills
-// Icons come exclusively from /public/assets/tech/ (local, no CDN dependency).
+// Text-only skill catalogue.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type SkillCategory =
@@ -18,14 +18,10 @@ export type Skill = {
   label: string;
   description: string;
   color: string; // brand hex — used for UI accents
-  /** Relative path served from /public, e.g. "/assets/tech/react.svg" */
-  icon: string;
   category: SkillCategory;
 };
 
 // ─── Master skill catalogue ───────────────────────────────────────────────────
-// Only skills that have a matching SVG in /public/assets/tech/ are listed here.
-// Add new entries when you drop a new icon into that folder.
 export const SKILLS: Skill[] = [
   // Languages
   {
@@ -33,7 +29,6 @@ export const SKILLS: Skill[] = [
     label: "JavaScript",
     description: "sprinkling chaos and callbacks since ES5",
     color: "#f0db4f",
-    icon: "/assets/tech/javascript.svg",
     category: "language",
   },
   {
@@ -41,7 +36,6 @@ export const SKILLS: Skill[] = [
     label: "TypeScript",
     description: "JavaScript's overachiever with a helmet on",
     color: "#007acc",
-    icon: "/assets/tech/typescript.svg",
     category: "language",
   },
   // Frontend
@@ -50,7 +44,6 @@ export const SKILLS: Skill[] = [
     label: "React",
     description: "hooks on hooks on hooks—state of constant suspense",
     color: "#61dafb",
-    icon: "/assets/tech/react.svg",
     category: "frontend",
   },
   {
@@ -58,7 +51,6 @@ export const SKILLS: Skill[] = [
     label: "Next.js",
     description: "SSR sorcery with a sprinkle of router drama",
     color: "#ffffff",
-    icon: "/assets/tech/nextjs.svg",
     category: "frontend",
   },
   {
@@ -66,7 +58,6 @@ export const SKILLS: Skill[] = [
     label: "Tailwind CSS",
     description: "utility drip so strong it bends time-to-ship",
     color: "#38bdf8",
-    icon: "/assets/tech/tailwindcss.svg",
     category: "frontend",
   },
   {
@@ -74,7 +65,6 @@ export const SKILLS: Skill[] = [
     label: "Sass",
     description: "CSS with superpowers and a nesting addiction",
     color: "#cc6699",
-    icon: "/assets/tech/sass.svg",
     category: "frontend",
   },
   {
@@ -82,7 +72,6 @@ export const SKILLS: Skill[] = [
     label: "Chakra UI",
     description: "accessible component system with theme tokens",
     color: "#319795",
-    icon: "/assets/tech/chakra-ui.svg",
     category: "frontend",
   },
   {
@@ -90,7 +79,6 @@ export const SKILLS: Skill[] = [
     label: "Styled Components",
     description: "CSS-in-JS: your styles live where your logic lives",
     color: "#db7093",
-    icon: "/assets/tech/styledcomponents.svg",
     category: "frontend",
   },
   // Animation
@@ -99,7 +87,6 @@ export const SKILLS: Skill[] = [
     label: "Framer Motion",
     description: "declarative animations that feel alive",
     color: "#0055ff",
-    icon: "/assets/tech/framer-motion.svg",
     category: "animation",
   },
   {
@@ -107,7 +94,6 @@ export const SKILLS: Skill[] = [
     label: "GSAP",
     description: "timeline-based animation engine for the web",
     color: "#88ce02",
-    icon: "/assets/tech/gsap.svg",
     category: "animation",
   },
   // State management / data fetching
@@ -116,7 +102,6 @@ export const SKILLS: Skill[] = [
     label: "Redux",
     description: "predictable state container with a side of boilerplate",
     color: "#764abc",
-    icon: "/assets/tech/redux.svg",
     category: "state",
   },
   {
@@ -124,7 +109,6 @@ export const SKILLS: Skill[] = [
     label: "TanStack Query",
     description: "async state management that makes REST bearable",
     color: "#ef4444",
-    icon: "/assets/tech/tanstack.svg",
     category: "state",
   },
   {
@@ -132,7 +116,6 @@ export const SKILLS: Skill[] = [
     label: "React Query",
     description: "server state with caching, refetching, and sane defaults",
     color: "#ef4444",
-    icon: "/assets/tech/react-query.svg",
     category: "state",
   },
   // Database / backend-as-a-service
@@ -141,7 +124,6 @@ export const SKILLS: Skill[] = [
     label: "MongoDB",
     description: "document hoarder with flexible vibes",
     color: "#4db33d",
-    icon: "/assets/tech/mongodb.svg",
     category: "database",
   },
   {
@@ -149,7 +131,6 @@ export const SKILLS: Skill[] = [
     label: "Firebase",
     description: "rapid backend-in-a-box; watch for the vendor vines",
     color: "#ffca28",
-    icon: "/assets/tech/firebase.svg",
     category: "database",
   },
   // Tooling / CI
@@ -158,7 +139,6 @@ export const SKILLS: Skill[] = [
     label: "Git",
     description: "time travel for code, with merge plot twists",
     color: "#f1502f",
-    icon: "/assets/tech/git.svg",
     category: "tooling",
   },
   {
@@ -166,7 +146,6 @@ export const SKILLS: Skill[] = [
     label: "Sanity CMS",
     description: "structured content platform with a real-time GROQ API",
     color: "#f03e2f",
-    icon: "/assets/tech/sanity.svg",
     category: "tooling",
   },
   // Mobile
@@ -175,7 +154,6 @@ export const SKILLS: Skill[] = [
     label: "Expo",
     description: "React Native toolkit that removes the native pain",
     color: "#000020",
-    icon: "/assets/tech/expo.svg",
     category: "mobile",
   },
 ];

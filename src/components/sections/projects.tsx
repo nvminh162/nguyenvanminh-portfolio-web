@@ -118,9 +118,10 @@ const ProjectCard = ({ project, isDesktop }: ProjectCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!cardRef.current) return;
-    import("vanilla-tilt").then(({ default: VanillaTilt }: any) => {
-      VanillaTilt.init(cardRef.current, tiltOptions);
+    const card = cardRef.current;
+    if (!card) return;
+    import("vanilla-tilt").then(({ default: VanillaTilt }) => {
+      VanillaTilt.init(card, tiltOptions);
     });
   }, []);
 
@@ -194,27 +195,6 @@ const ProjectCard = ({ project, isDesktop }: ProjectCardProps) => {
         >
           {project.name}
         </h1>
-        <div
-          className={cn(
-            "w-1/2 h-full absolute left-24 top-0 sm:flex items-center hidden",
-            "rotate-[-22.5deg]"
-          )}
-          style={{ transform: "rotate(-22.5deg) translateZ(3rem)" }}
-        >
-          <div className="flex flex-col pb-8">
-            {project.techIds.map((el, i) => (
-              <Image
-                className={`${i % 2 === 0 ? "ml-16" : ""} mb-4 self-start`}
-                src={`/assets/tech/${el}.svg`}
-                alt={el}
-                width={45}
-                height={45}
-                unoptimized
-                key={el}
-              />
-            ))}
-          </div>
-        </div>
         <h2
           className="z-10 text-sm font-normal tracking-wide text-white"
           style={{ transform: "translateZ(0.8rem)" }}
