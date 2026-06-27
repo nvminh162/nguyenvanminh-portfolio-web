@@ -48,7 +48,7 @@ const Header = ({ loader }: HeaderProps) => {
     >
       <div className={cn(styles.bar, "flex items-center justify-between mt-2")}>
         <Link href="/" className="flex items-center justify-center">
-          <Image src={logoSrc} alt="logo" width={200} height={200} />
+          <Image src={logoSrc} alt="logo" width={180} height={180} />
         </Link>
 
         <FunnyThemeToggle className="w-6 h-6 mr-4 flex" />
