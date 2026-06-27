@@ -9,12 +9,12 @@ const links: Link[] = [
   {
     title: 'Summary',
     href: '/#summary',
-    thumbnail: '/assets/nav-link-previews/skills.png'
+    thumbnail: '/assets/nav-link-previews/summary.png'
   },
   {
     title: 'Skills',
     href: '/#skills',
-    thumbnail: '/assets/nav-link-previews/experience.png'
+    thumbnail: '/assets/nav-link-previews/skill.png'
   },
   {
     title: 'Projects',
