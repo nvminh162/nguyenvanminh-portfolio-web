@@ -42,9 +42,9 @@ const AnimatedBackground = () => {
       });
 
     const tls = [
-      createTrigger("#skills", "skills", "hero"),
-      createTrigger("#experience", "experience", "skills"),
-      createTrigger("#projects", "projects", "experience", "top 85%"),
+      createTrigger("#summary", "summary", "hero"),
+      createTrigger("#skills", "skills", "summary"),
+      createTrigger("#projects", "projects", "skills", "top 85%"),
       createTrigger("#resume", "resume", "projects"),
       createTrigger("#collaborate", "collaborate", "resume", "top 30%"),
       createTrigger("#contact", "contact", "collaborate", "top 30%"),

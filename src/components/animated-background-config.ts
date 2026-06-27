@@ -1,4 +1,4 @@
-export type Section = "hero" | "about" | "skills" | "experience" | "projects" | "resume" | "collaborate" | "contact";
+export type Section = "hero" | "about" | "summary" | "skills" | "projects" | "resume" | "collaborate" | "contact";
 
 export const STATES = {
   hero: {
@@ -33,13 +33,13 @@ export const STATES = {
       },
     },
   },
-  experience: {
+  skills: {
     desktop: {
       scale: { x: 0.25, y: 0.25, z: 0.25 },
       position: { x: 0, y: -40, z: 0 },
       rotation: {
-        x: Math.PI / 12, // Slight tilt forward
-        y: -Math.PI / 4, // Rotate opposite to skills
+        x: Math.PI / 12,
+        y: -Math.PI / 4,
         z: 0,
       },
     },
@@ -53,7 +53,7 @@ export const STATES = {
       },
     },
   },
-  skills: {
+  summary: {
     desktop: {
       scale: { x: 0.25, y: 0.25, z: 0.25 },
       position: { x: 0, y: -100, z: 0 },
