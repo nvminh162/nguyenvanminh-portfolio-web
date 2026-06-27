@@ -7,8 +7,6 @@ import { Button } from "@/components/ui/button";
 import { SectionHeader } from "./section-header";
 import SectionWrapper from "@/components/ui/section-wrapper";
 import {
-  ChevronLeft,
-  ChevronRight,
   Download,
   Loader2,
   ZoomIn,
@@ -31,13 +29,10 @@ const ResumePdfViewer = dynamic(
 
 const ResumeSection = () => {
   const [numPages, setNumPages] = useState<number>(0);
-  const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1);
 
   const onLoadSuccess = useCallback((n: number) => setNumPages(n), []);
 
-  const prevPage = () => setPageNumber((p) => Math.max(p - 1, 1));
-  const nextPage = () => setPageNumber((p) => Math.min(p + 1, numPages));
   const zoomIn = () => setScale((s) => Math.min(+(s + 0.2).toFixed(1), 2));
   const zoomOut = () => setScale((s) => Math.max(+(s - 0.2).toFixed(1), 0.6));
 
@@ -65,29 +60,10 @@ const ResumeSection = () => {
             "bg-card border border-border shadow-sm flex-wrap"
           )}
         >
-          {/* Page controls */}
           <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={prevPage}
-              disabled={pageNumber <= 1 || numPages === 0}
-              className="h-8 w-8"
-            >
-              <ChevronLeft size={16} />
-            </Button>
-            <span className="text-sm text-muted-foreground tabular-nums min-w-[80px] text-center">
-              {numPages === 0 ? "..." : `${pageNumber} / ${numPages}`}
+            <span className="text-sm text-muted-foreground tabular-nums min-w-[80px]">
+              {numPages === 0 ? "Loading..." : `${numPages} pages`}
             </span>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={nextPage}
-              disabled={pageNumber >= numPages || numPages === 0}
-              className="h-8 w-8"
-            >
-              <ChevronRight size={16} />
-            </Button>
           </div>
 
           {/* Zoom + Download */}
@@ -139,33 +115,9 @@ const ResumeSection = () => {
           <ResumePdfViewer
             file={cvAssets.path}
             scale={scale}
-            pageNumber={pageNumber}
             onLoadSuccess={onLoadSuccess}
           />
         </motion.div>
-
-        {/* Page indicator dots */}
-        {numPages > 1 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex justify-center gap-1.5 mt-4"
-          >
-            {Array.from({ length: numPages }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setPageNumber(i + 1)}
-                className={cn(
-                  "rounded-full transition-all duration-200",
-                  i + 1 === pageNumber
-                    ? "bg-primary w-4 h-2"
-                    : "bg-muted-foreground/30 w-2 h-2 hover:bg-muted-foreground/60"
-                )}
-              />
-            ))}
-          </motion.div>
-        )}
       </div>
     </SectionWrapper>
   );

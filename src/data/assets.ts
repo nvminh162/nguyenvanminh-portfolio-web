@@ -14,6 +14,6 @@ export const portraitAssets = {
 } as const;
 
 export const cvAssets = {
-  path:     "/cv/nguyenvanminh-cv.pdf",
-  fileName: "nguyenvanminh-cv.pdf",
+  path:     "/cv/NguyenVanMinh_FullstackDeveloperIntern.pdf",
+  fileName: "NguyenVanMinh_FullstackDeveloperIntern.pdf",
 } as const;

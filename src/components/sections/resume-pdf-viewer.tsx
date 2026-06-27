@@ -11,19 +11,18 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/b
 interface ResumePdfViewerProps {
   file: string;
   scale: number;
-  pageNumber: number;
   onLoadSuccess: (numPages: number) => void;
 }
 
 const ResumePdfViewer = ({
   file,
   scale,
-  pageNumber,
   onLoadSuccess,
 }: ResumePdfViewerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(760);
   const [loading, setLoading] = useState(true);
+  const [numPages, setNumPages] = useState(0);
 
   useEffect(() => {
     const update = () => {
@@ -40,6 +39,7 @@ const ResumePdfViewer = ({
 
   const handleLoadSuccess = useCallback(
     ({ numPages }: { numPages: number }) => {
+      setNumPages(numPages);
       setLoading(false);
       onLoadSuccess(numPages);
     },
@@ -62,15 +62,18 @@ const ResumePdfViewer = ({
           file={file}
           onLoadSuccess={handleLoadSuccess}
           loading={null}
-          className="flex flex-col items-center"
+          className="flex flex-col items-center gap-6"
         >
-          <Page
-            pageNumber={pageNumber}
-            width={containerWidth * scale}
-            renderAnnotationLayer
-            renderTextLayer
-            className="shadow-lg"
-          />
+          {Array.from({ length: numPages }, (_, index) => (
+            <Page
+              key={`resume-page-${index + 1}`}
+              pageNumber={index + 1}
+              width={containerWidth * scale}
+              renderAnnotationLayer
+              renderTextLayer
+              className="shadow-lg"
+            />
+          ))}
         </Document>
       </div>
     </div>
