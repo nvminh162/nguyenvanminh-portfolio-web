@@ -12,20 +12,49 @@ import { usePreloader } from "../preloader";
 import { BlurIn, BoxReveal } from "../reveal-animations";
 import ScrollDownIcon from "../scroll-down-icon";
 import { config } from "@/data/config";
-import { useInView } from "framer-motion";
 import { useAvatar } from "@/contexts/avatar-context";
 import SectionWrapper from "../ui/section-wrapper";
 
 const HeroSection = () => {
   const { isLoading } = usePreloader();
   const { show, hide } = useAvatar();
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef, { amount: 0.3 });
+  const sectionRef = useRef<HTMLElement>(null);
+  const avatarVisibleRef = useRef(false);
 
   useEffect(() => {
-    if (inView) show("hero");
-    else hide();
-  }, [inView]);
+    let frame = 0;
+
+    const syncAvatar = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        const rect = section.getBoundingClientRect();
+        const shouldShow =
+          rect.top < window.innerHeight * 0.6 &&
+          rect.bottom > window.innerHeight * 0.72;
+
+        if (shouldShow === avatarVisibleRef.current) return;
+
+        avatarVisibleRef.current = shouldShow;
+        if (shouldShow) show("hero");
+        else hide();
+      });
+    };
+
+    syncAvatar();
+    window.addEventListener("scroll", syncAvatar, { passive: true });
+    window.addEventListener("resize", syncAvatar);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", syncAvatar);
+      window.removeEventListener("resize", syncAvatar);
+      avatarVisibleRef.current = false;
+      hide();
+    };
+  }, [hide, show]);
 
   return (
     <SectionWrapper id="hero" className={cn("relative w-full h-[100dvh]")} ref={sectionRef}>

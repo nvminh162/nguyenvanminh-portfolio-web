@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -11,27 +11,16 @@ import ContactForm from "../ContactForm";
 import { contact } from "@/data/contact";
 import { SectionHeader } from "./section-header";
 import SectionWrapper from "../ui/section-wrapper";
-import { useInView } from "framer-motion";
-import { useAvatar } from "@/contexts/avatar-context";
 
 const CollaborateSection = () => {
-  const { show, hide } = useAvatar();
-  const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { amount: 0.25 });
-
-  useEffect(() => {
-    if (inView) show("contact");
-    else hide();
-  }, [inView]);
-
   return (
-    <SectionWrapper id="collaborate" className="min-h-[100dvh] max-w-7xl mx-auto " ref={sectionRef}>
+    <SectionWrapper id="collaborate" className="min-h-[100dvh] max-w-7xl mx-auto">
       <SectionHeader id='collaborate' className="relative mb-14" title={
         <>
           LET&apos;S <br />
           COLLABORATE
         </>} />
-      <div className="grid grid-cols-1 md:grid-cols-2 z-[9999] mx-4">
+      <div className="relative z-[2] mx-4">
         <Card className="w-full bg-white/70 dark:bg-black/70 backdrop-blur-sm rounded-xl mt-10 md:mt-20">
           <CardHeader>
             <CardTitle className="text-4xl">Start a Project</CardTitle>

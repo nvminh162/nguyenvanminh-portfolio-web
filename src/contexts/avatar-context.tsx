@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useMemo, useState } from "react";
 
-export type AvatarVariant = "hero" | "about" | "contact";
+export type AvatarVariant = "hero";
 
 interface AvatarContextType {
   variant: AvatarVariant | null;
@@ -18,15 +18,19 @@ const AvatarContext = createContext<AvatarContextType>({
 
 export const AvatarProvider = ({ children }: { children: React.ReactNode }) => {
   const [variant, setVariant] = useState<AvatarVariant | null>(null);
+  const show = useCallback((v: AvatarVariant) => setVariant(v), []);
+  const hide = useCallback(() => setVariant(null), []);
+  const value = useMemo(
+    () => ({
+      variant,
+      show,
+      hide,
+    }),
+    [hide, show, variant]
+  );
 
   return (
-    <AvatarContext.Provider
-      value={{
-        variant,
-        show: (v) => setVariant(v),
-        hide: () => setVariant(null),
-      }}
-    >
+    <AvatarContext.Provider value={value}>
       {children}
     </AvatarContext.Provider>
   );

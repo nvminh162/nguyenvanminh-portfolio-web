@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useAvatar, type AvatarVariant } from "@/contexts/avatar-context";
 import { portraitAssets } from "@/data/assets";
@@ -23,14 +22,6 @@ const CONFIG: Record<
     desktop: { x: -240, y: 34,  opacity: 1 },
     mobile:  { x: -30,  y: 300, opacity: 1 },
   },
-  about: {
-    desktop: { x: -200, y: 20,  opacity: 1 },
-    mobile:  { x: -30,  y: 280, opacity: 1 },
-  },
-  contact: {
-    desktop: { x: -64,  y: 108, opacity: 1 },
-    mobile:  { x: -74,  y: -44, opacity: 0 },
-  },
 };
 
 const INITIAL: MotionValues = { x: 300, y: 0, opacity: 0 };
@@ -41,14 +32,16 @@ const spring = { type: "spring" as const, stiffness: 180, damping: 22 };
 // ─────────────────────────────────────────────────────────────────────────────
 
 const AvatarPortrait = () => {
-  const { variant, show, hide } = useAvatar();
-  const pathname  = usePathname();
+  const { variant } = useAvatar();
   const { resolvedTheme } = useTheme();
   const { isLoading } = usePreloader();
   const isMobile  = useMediaQuery("(max-width: 767px)");
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setMounted(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   const portraitSrc =
     mounted && resolvedTheme === "light"
@@ -61,7 +54,7 @@ const AvatarPortrait = () => {
 
   return (
     <AnimatePresence mode="wait">
-      {!isLoading && variant && animate && (
+      {!isLoading && variant === "hero" && animate && (
         <motion.div
           key={variant}
           className="fixed right-[5vw] top-[13vh] z-[1] pointer-events-none"
